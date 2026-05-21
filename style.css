@@ -77,39 +77,6 @@ body {
   display: block;
 }
 
-
-/* ================================================================
-   TOP BAR
-   Thin bar at very top. Delete the HTML block if not needed.
-================================================================ */
-.top-bar {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 48px;
-  font-size: 12px;
-  color: var(--mid);
-}
-
-.top-bar select {
-  border: none;
-  background: none;
-  font-size: 12px;
-  color: var(--mid);
-  cursor: pointer;
-  font-family: 'Lato', sans-serif;
-}
-
-.top-bar a {
-  color: var(--mid);
-  text-decoration: none;
-  font-size: 12px;
-}
-.top-bar a:hover { color: var(--text); }
-
-
 /* ================================================================
    NAVIGATION
    Sits on top of the hero (position: fixed).
