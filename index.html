@@ -85,23 +85,40 @@
     - On hover or scroll: white background appears
     - Logo: replace logo.png with your actual logo file name
     - Links scroll to sections using #id anchors
+    - Hamburger menu on mobile (fully functional).
   ============================================================ -->
-  <nav id="mainNav">
+  <nav id="mainNav" role="navigation" aria-label="Main navigation">
  
-    <!-- LOGO — upload your logo file and change "logo.png" to match -->
-    <a href="/" class="nav-logo-link">
-      <img src="logo.png" alt="Your Brand Logo" class="nav-logo-img" />
+    <a href="/" class="nav-logo-link" aria-label="Your Brand — go to homepage">
+      <img src="logo.png" alt="Your Brand logo" class="nav-logo-img" />
     </a>
  
-    <!-- Main nav links -->
-    <ul class="nav-links">
+    <!-- Desktop nav links -->
+    <ul class="nav-links" role="list">
       <li><a href="#categories">Categories</a></li>
-      <li><a href="#products">Products</a></li>  
+      <li><a href="#products">Products</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+  
+    <!-- Hamburger button — mobile only -->
+    <button id="hamburger" class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
  
   </nav>
+ 
+  <!-- Mobile menu drawer -->
+  <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+    <ul role="list">
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
  
  
   <!-- ============================================================
