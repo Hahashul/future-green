@@ -268,14 +268,15 @@
       Change the text in <p class="stat-label"> for the label.
       Change <span class="stat-suffix"> for "+", "yrs" etc.
   ============================================================ -->
-  <section class="stats" id="stats">
+   <section class="stats" id="stats" aria-labelledby="stats-heading">
+    <h2 id="stats-heading" class="sr-only">Company Statistics</h2>
  
     <div class="stats-grid">
  
       <div class="stat-card">
         <div class="stat-number">
           <span class="stat-count" data-target="15">0</span>
-          <span class="stat-suffix">+</span>
+          <span class="stat-suffix" aria-hidden="true">+</span>
         </div>
         <p class="stat-label">Years Experience</p>
       </div>
@@ -283,7 +284,7 @@
       <div class="stat-card">
         <div class="stat-number">
           <span class="stat-count" data-target="200">0</span>
-          <span class="stat-suffix">+</span>
+          <span class="stat-suffix" aria-hidden="true">+</span>
         </div>
         <p class="stat-label">Product Variants</p>
       </div>
@@ -291,7 +292,7 @@
       <div class="stat-card">
         <div class="stat-number">
           <span class="stat-count" data-target="500">0</span>
-          <span class="stat-suffix">+</span>
+          <span class="stat-suffix" aria-hidden="true">+</span>
         </div>
         <p class="stat-label">Dealer Partners</p>
       </div>
@@ -299,13 +300,12 @@
       <div class="stat-card">
         <div class="stat-number">
           <span class="stat-count" data-target="30">0</span>
-          <span class="stat-suffix">+</span>
+          <span class="stat-suffix" aria-hidden="true">+</span>
         </div>
         <p class="stat-label">States Covered</p>
       </div>
  
     </div>
- 
   </section>
  
  
