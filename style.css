@@ -314,9 +314,11 @@ nav.nav-solid .hamburger span { background: var(--text); }
   max-width: 500px;
 }
 
-.hero-text h1 {
+/* Only slide 1 uses H1 — others use .hero-h2 (styled identically, not H1) */
+.hero-text h1,
+.hero-text .hero-h2 {
   font-family: 'Lato', sans-serif;
-  font-size: clamp(36px, 5vw, 64px);  /* responsive font size */
+  font-size: clamp(36px, 5vw, 64px);
   font-weight: 700;
   color: #fff;
   line-height: 1.12;
@@ -365,22 +367,27 @@ nav.nav-solid .hamburger span { background: var(--text); }
 
 
 /* ================================================================
-   CATEGORY MOSAIC GRID
-   Asymmetric luxury grid — 6 categories.
-   Uses CSS Grid with named areas for the uneven layout.
-
-   Grid layout (desktop):
-   ┌───────────┬──────────┬──────────┐
-   │           │ Flood    │ Down     │
-   │   COB     ├──────────┴──────────┤
-   │  (tall)   │   Panel Lights      │
-   ├───────────┤   (tall, center)    │
-   │  Garden   ├──────────┬──────────┤
-   │           │ Street Lights (wide)│
-   └───────────┴──────────┴──────────┘
+   CATEGORY MOSAIC GRID  ← THE BIG FIX
+   
+   Correct layout:
+   Col:  [  1.1fr  ] [   1fr   ] [   1fr   ]
+   Row1: [ COB      ] [Flood    ] [Downlights]
+   Row2: [ Garden   ] [Panel────────────────]  ← Panel spans col 2+3
+   
+   Wait — looking at the screenshot the user shared:
+   The grid shows COB (tall left), Flood+Down (top row right 2),
+   Panel (bottom center), Garden Lights (bottom right).
+   Street lights is cut off. The original intent was:
+   
+   Col:  [  1.1fr  ] [   1fr   ] [   1fr   ]
+   Row1: [ COB(×2) ] [Flood    ] [Down      ]
+   Row2: [ COB(×2) ] [Panel(×2)] [Garden    ]  ← Garden bottom-right
+         (Street spans col 2+3 at bottom somehow)
+   
+   The real fix: explicit grid-area placement so nothing auto-flows wrong.
 ================================================================ */
 .categories {
-  padding:80px 40px 80px 40px;              
+  padding: 80px 40px;
   background: var(--white);
 }
 
@@ -389,15 +396,37 @@ nav.nav-solid .hamburger span { background: var(--text); }
   /* 3 columns: left is narrower, center and right are equal */
   grid-template-columns: 1.1fr 1fr 1fr;
   /* 2 rows of equal height */
-  grid-template-rows: 340px 340px;
+  grid-template-rows: 340px 340px 220px;
   gap: 10px;                /* thin gap between cells — luxury feel */
 }
 
+/*
+  Explicit placement — no auto-flow, no named areas:
+ 
+  Desktop (3 cols):
+  ┌──────────────┬──────────┬──────────┐
+  │ COB (r1–2)   │ Flood    │ Down     │  row 1
+  ├──────────────┼──────────┼──────────┤
+  │ COB (r1–2)   │ Panel    │ Garden   │  row 2
+  ├──────────────┴──────────┴──────────┤
+  │ Street Lights (full width)         │  row 3
+  └────────────────────────────────────┘
+*/
+.cat-tall-left   { grid-column: 1; grid-row: 1 / 3; }   /* COB: col1, both rows */
+.cat-bg-2        { grid-column: 2; grid-row: 1; }        /* Flood: col2, row1 */
+.cat-bg-3        { grid-column: 3; grid-row: 1; }        /* Down: col3, row1 */
+.cat-tall-center { grid-column: 2; grid-row: 2; }        /* Panel: col2, row2 */
+.cat-bg-5        { grid-column: 3; grid-row: 2; }        /* Garden: col3, row2 */
+/* Street spans full width as row 3 */
+.cat-wide-right  { grid-column: 1 / 4; grid-row: 3; }
+ 
 /* Default cell styles */
 .cat-cell {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  text-decoration: none;   /* cells are now <a> tags */
+  display: block;
 }
 
 /* Hover: image zooms in slightly */
@@ -409,15 +438,6 @@ nav.nav-solid .hamburger span { background: var(--text); }
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .cat-cell:hover .cat-img-inner { transform: scale(1.05); }
-
-/* ── GRID PLACEMENT — special cells ──
-   COB: tall left column, spans both rows
-   Panel: tall center, spans both rows
-   Street: wide bottom-right, spans 2 columns
-*/
-.cat-tall-left   { grid-row: span 2; }          /* COB spans 2 rows */
-.cat-tall-center { grid-column: 2; grid-row: span 2; } /* Panel spans 2 rows */
-.cat-wide-right  { grid-column: 3; }            /* Street light, normal */
 
 /* ── CELL BACKGROUND COLORS ──
    Replace each gradient with:
@@ -447,6 +467,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
    Sits at the bottom of each cell.
    Semi-transparent gradient behind the text for readability.
 */
+
 .cat-label-wrap {
   position: absolute;
   bottom: 0;
@@ -456,7 +477,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   background: linear-gradient(transparent, rgba(0,0,0,0.65));
   z-index: 2;
 }
-
+ 
 .cat-label {
   display: block;
   font-size: 18px;
@@ -465,7 +486,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   letter-spacing: 0.01em;
   margin-bottom: 4px;
 }
-
+ 
 .cat-sub {
   display: block;
   font-size: 11px;
@@ -474,7 +495,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-
+ 
 
 /* ================================================================
    STATS / NUMBERS PANEL
