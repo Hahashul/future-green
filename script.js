@@ -27,13 +27,16 @@ function goSlide(n) {
   // Remove active state from current slide and its dot
   slides[currentSlide].classList.remove('active');
   dots[currentSlide].classList.remove('active');
- 
+  dots[currentSlide].setAttribute('aria-selected', 'false');
+  
   // Update the tracker to the new slide
   currentSlide = n;
  
   // Activate the new slide and its dot
   slides[currentSlide].classList.add('active');
   dots[currentSlide].classList.add('active');
+  dots[currentSlide].setAttribute('aria-selected', 'true');
+  
 }
  
 // Auto-rotate every 5000ms (5 seconds)
