@@ -133,45 +133,48 @@
       background-size: cover;
       background-position: center;
   ============================================================ -->
-  <section class="hero" id="hero">
+   <main id="main-content">
+  <section class="hero" id="hero" aria-label="Hero slideshow">
  
-    <!-- Slide 1 -->
-    <div class="hero-slide active">
-      <div class="hero-slide-bg slide-bg-1"></div>
-      <div class="hero-overlay"></div>
+    <!-- Slide 1 — no CTA on first slide was a gap, now fixed -->
+    <div class="hero-slide active" role="group" aria-label="Slide 1 of 3">
+      <div class="hero-slide-bg slide-bg-1" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-text">
         <h1>Light every space<br>with precision</h1>
+        <a href="#categories" class="hero-link">Explore our range</a>
       </div>
     </div>
  
     <!-- Slide 2 -->
-    <div class="hero-slide">
-      <div class="hero-slide-bg slide-bg-2"></div>
-      <div class="hero-overlay"></div>
+    <div class="hero-slide" role="group" aria-label="Slide 2 of 3">
+      <div class="hero-slide-bg slide-bg-2" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-text">
-        <h1>COB &amp; Flood<br>collections</h1>
+        <h2 class="hero-h2">COB &amp; Flood<br>collections</h2>
         <a href="#categories" class="hero-link">View all categories</a>
       </div>
     </div>
  
     <!-- Slide 3 -->
-    <div class="hero-slide">
-      <div class="hero-slide-bg slide-bg-3"></div>
-      <div class="hero-overlay"></div>
+    <div class="hero-slide" role="group" aria-label="Slide 3 of 3">
+      <div class="hero-slide-bg slide-bg-3" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-text">
-        <h1>Engineered for<br>the outdoors</h1>
+        <h2 class="hero-h2">Engineered for<br>the outdoors</h2>
         <a href="#categories" class="hero-link">Garden &amp; Street lights</a>
       </div>
     </div>
  
-    <!-- Slide dots — clicking jumps to that slide -->
-    <div class="hero-dots">
-      <button class="hero-dot active" onclick="goSlide(0)"></button>
-      <button class="hero-dot" onclick="goSlide(1)"></button>
-      <button class="hero-dot" onclick="goSlide(2)"></button>
+    <!-- Slide dots -->
+    <div class="hero-dots" role="tablist" aria-label="Slideshow controls">
+      <button class="hero-dot active" onclick="goSlide(0)" role="tab" aria-selected="true"  aria-label="Go to slide 1"></button>
+      <button class="hero-dot"        onclick="goSlide(1)" role="tab" aria-selected="false" aria-label="Go to slide 2"></button>
+      <button class="hero-dot"        onclick="goSlide(2)" role="tab" aria-selected="false" aria-label="Go to slide 3"></button>
     </div>
  
   </section>
+ 
  
  
   <!-- ============================================================
