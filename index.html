@@ -323,77 +323,76 @@
       In style.css find .strip-c1 through .strip-c6
       and replace gradients with background-image: url('product.jpg');
   ============================================================ -->
-  <section class="strip-section" id="products">
+  <section class="strip-section" id="products" aria-labelledby="products-heading">
  
-    <!-- Optional heading above the strip -->
     <div class="strip-heading reveal">
       <p class="strip-eyebrow">Our Range</p>
-      <h2>Featured Products</h2>
+      <h2 id="products-heading">Featured Products</h2>
     </div>
  
-    <div class="strip-wrapper">
-      <div class="strip-track">
+    <div class="strip-wrapper" aria-label="Scrolling product showcase" role="region">
+      <div class="strip-track" aria-hidden="true">
  
-        <!-- ── SET 1 (original cards) ── -->
+        <!-- SET 1 -->
         <div class="strip-card">
-          <div class="strip-img strip-c1"><div class="strip-ph">💡</div></div>
+          <div class="strip-img strip-c1"><div class="strip-ph" aria-hidden="true">💡</div></div>
           <p class="strip-name">COB Spotlight 30W</p>
           <p class="strip-sub">Warm White · Ra90</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c2"><div class="strip-ph">🔦</div></div>
+          <div class="strip-img strip-c2"><div class="strip-ph" aria-hidden="true">🔦</div></div>
           <p class="strip-name">Flood Pro 100W</p>
           <p class="strip-sub">IP66 · Cool White</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c3"><div class="strip-ph">🔆</div></div>
+          <div class="strip-img strip-c3"><div class="strip-ph" aria-hidden="true">🔆</div></div>
           <p class="strip-name">Slim Downlight 12W</p>
           <p class="strip-sub">Recessed · Dimmable</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c4"><div class="strip-ph">⬜</div></div>
+          <div class="strip-img strip-c4"><div class="strip-ph" aria-hidden="true">⬜</div></div>
           <p class="strip-name">Panel Light 40W</p>
           <p class="strip-sub">595×595 · Neutral White</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c5"><div class="strip-ph">🌿</div></div>
+          <div class="strip-img strip-c5"><div class="strip-ph" aria-hidden="true">🌿</div></div>
           <p class="strip-name">Garden Spike 10W</p>
           <p class="strip-sub">Solar Ready · IP67</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c6"><div class="strip-ph">🏙️</div></div>
+          <div class="strip-img strip-c6"><div class="strip-ph" aria-hidden="true">🏙️</div></div>
           <p class="strip-name">Street Light 80W</p>
           <p class="strip-sub">Cobra Head · IK10</p>
         </div>
  
-        <!-- ── SET 2 (exact copy — required for seamless infinite loop) ── -->
+        <!-- SET 2 — exact copy for seamless loop -->
         <div class="strip-card">
-          <div class="strip-img strip-c1"><div class="strip-ph">💡</div></div>
+          <div class="strip-img strip-c1"><div class="strip-ph" aria-hidden="true">💡</div></div>
           <p class="strip-name">COB Spotlight 30W</p>
           <p class="strip-sub">Warm White · Ra90</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c2"><div class="strip-ph">🔦</div></div>
+          <div class="strip-img strip-c2"><div class="strip-ph" aria-hidden="true">🔦</div></div>
           <p class="strip-name">Flood Pro 100W</p>
           <p class="strip-sub">IP66 · Cool White</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c3"><div class="strip-ph">🔆</div></div>
+          <div class="strip-img strip-c3"><div class="strip-ph" aria-hidden="true">🔆</div></div>
           <p class="strip-name">Slim Downlight 12W</p>
           <p class="strip-sub">Recessed · Dimmable</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c4"><div class="strip-ph">⬜</div></div>
+          <div class="strip-img strip-c4"><div class="strip-ph" aria-hidden="true">⬜</div></div>
           <p class="strip-name">Panel Light 40W</p>
           <p class="strip-sub">595×595 · Neutral White</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c5"><div class="strip-ph">🌿</div></div>
+          <div class="strip-img strip-c5"><div class="strip-ph" aria-hidden="true">🌿</div></div>
           <p class="strip-name">Garden Spike 10W</p>
           <p class="strip-sub">Solar Ready · IP67</p>
         </div>
         <div class="strip-card">
-          <div class="strip-img strip-c6"><div class="strip-ph">🏙️</div></div>
+          <div class="strip-img strip-c6"><div class="strip-ph" aria-hidden="true">🏙️</div></div>
           <p class="strip-name">Street Light 80W</p>
           <p class="strip-sub">Cobra Head · IK10</p>
         </div>
