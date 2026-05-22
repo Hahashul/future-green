@@ -182,76 +182,81 @@
     Luxury uneven asymmetric layout — 6 categories:
     COB · Flood Lights · Downlights · Panel Lights · Garden Lights · Street Lights
  
-    Layout pattern (like luxury brand grids):
-      [ WIDE-LEFT ]  [ TOP-RIGHT-SMALL ] [ TOP-RIGHT-SMALL ]
-      [ WIDE-LEFT ]  [ BIG-CENTER-TALL                     ]
-      [ BOTTOM-SM ]  [ BIG-CENTER-TALL  ] [ BOTTOM-RIGHT   ]
+    ┌─────────────┬──────────┬──────────┐
+    │             │  Flood   │  Down    │
+    │   COB       ├──────────┴──────────┤  ← row 1
+    │  (2 rows)   │  Panel (2 rows)     │
+    ├─────────────┤                     │
+    │   Garden    ├──────────┬──────────┤  ← row 2
+    │             │  Street (span 2 col)│
+    └─────────────┴──────────┴──────────┘
  
     HOW TO ADD REAL PHOTOS:
       In style.css find .cat-bg-1 through .cat-bg-6
       Replace gradient with: background-image: url('category.jpg');
   ============================================================ -->
-  <section class="categories" id="categories">
+   <section class="categories" id="categories" aria-labelledby="categories-heading">
+    <h2 id="categories-heading" class="sr-only">Product Categories</h2>
  
     <div class="cat-grid">
  
-      <!-- CELL 1: COB — large tall cell, left column spans 2 rows -->
-      <div class="cat-cell cat-tall-left cat-bg-1">
-        <div class="cat-img-inner"></div>
+      <!-- CELL 1: COB — spans 2 rows, left column -->
+      <a href="#products" class="cat-cell cat-tall-left cat-bg-1" aria-label="COB Lights — Chip on Board">
+        <div class="cat-img-inner" aria-hidden="true"></div>
         <div class="cat-label-wrap">
           <span class="cat-label">COB</span>
           <span class="cat-sub">Chip on Board</span>
         </div>
-      </div>
+      </a>
  
-      <!-- CELL 2: Flood Lights — top center, normal height -->
-      <div class="cat-cell cat-bg-2">
-        <div class="cat-img-inner"></div>
+      <!-- CELL 2: Flood Lights — top center -->
+      <a href="#products" class="cat-cell cat-bg-2" aria-label="Flood Lights — High-output beam">
+        <div class="cat-img-inner" aria-hidden="true"></div>
         <div class="cat-label-wrap">
           <span class="cat-label">Flood Lights</span>
           <span class="cat-sub">High-output beam</span>
         </div>
-      </div>
+      </a>
  
-      <!-- CELL 3: Downlights — top right, normal height -->
-      <div class="cat-cell cat-bg-3">
-        <div class="cat-img-inner"></div>
+      <!-- CELL 3: Downlights — top right -->
+      <a href="#products" class="cat-cell cat-bg-3" aria-label="Downlights — Recessed precision">
+        <div class="cat-img-inner" aria-hidden="true"></div>
         <div class="cat-label-wrap">
           <span class="cat-label">Downlights</span>
           <span class="cat-sub">Recessed precision</span>
         </div>
-      </div>
+      </a>
  
-      <!-- CELL 4: Panel Lights — bottom center, TALL spans 2 rows -->
-      <div class="cat-cell cat-tall-center cat-bg-4">
-        <div class="cat-img-inner"></div>
+      <!-- CELL 4: Panel Lights — spans 2 rows, center column -->
+      <a href="#products" class="cat-cell cat-tall-center cat-bg-4" aria-label="Panel Lights — Even surface glow">
+        <div class="cat-img-inner" aria-hidden="true"></div>
         <div class="cat-label-wrap">
           <span class="cat-label">Panel Lights</span>
           <span class="cat-sub">Even surface glow</span>
         </div>
-      </div>
+      </a>
  
-      <!-- CELL 5: Garden Lights — bottom left (under COB) -->
-      <div class="cat-cell cat-bg-5">
-        <div class="cat-img-inner"></div>
+      <!-- CELL 5: Garden Lights — bottom left -->
+      <a href="#products" class="cat-cell cat-bg-5" aria-label="Garden Lights — Outdoor ambiance">
+        <div class="cat-img-inner" aria-hidden="true"></div>
         <div class="cat-label-wrap">
           <span class="cat-label">Garden Lights</span>
           <span class="cat-sub">Outdoor ambiance</span>
         </div>
-      </div>
+      </a>
  
-      <!-- CELL 6: Street Lights — bottom right, wide -->
-      <div class="cat-cell cat-wide-right cat-bg-6">
-        <div class="cat-img-inner"></div>
+      <!-- CELL 6: Street Lights — bottom right, spans 2 columns -->
+      <a href="#products" class="cat-cell cat-wide-right cat-bg-6" aria-label="Street Lights — Urban infrastructure">
+        <div class="cat-img-inner" aria-hidden="true"></div>
         <div class="cat-label-wrap">
           <span class="cat-label">Street Lights</span>
           <span class="cat-sub">Urban infrastructure</span>
         </div>
-      </div>
+      </a>
  
     </div>
- 
   </section>
+ 
  
  
   <!-- ============================================================
