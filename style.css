@@ -635,37 +635,41 @@ nav.nav-solid .hamburger span { background: var(--text); }
 
 /* ================================================================
    9. ABOUT US
-   Two photos side by side on the left, text block on the right.
+   Image on the left (with padding so it floats), text on the right.
 
-   TO ADD REAL PHOTOS:
+   TO ADD REAL PHOTO:
      .about-img-1 { background-image: url('factory.jpg'); }
-     .about-img-2 { background-image: url('product.jpg'); }
 ================================================================ */
 .about {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 480px;
   background: var(--off-white);
+  padding: 48px 48px 48px 48px;
+  gap: 0;
 }
 
-/* Photo container: two columns side by side */
+/* Photo container: has padding so image doesn't touch edges */
 .about-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  padding: 0 24px 0 0;
+  display: block;
   overflow: hidden;
 }
 
-/* Each photo — placeholders until real images added */
+/* The image itself — rounded corners + shadow to feel "floating" */
 .about-img {
   background-size: cover;
   background-position: center;
-  min-height: 420px;
+  height: 100%;
+  min-height: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
   transition: transform 0.6s ease;
 }
 .about-img:hover { transform: scale(1.02); }
 
-/* Placeholder gradients — replace with real photos */
+/* Placeholder gradient — replace with real photo */
 .about-img-1 { background: linear-gradient(160deg, #2a2620 0%, #4a3e2e 100%); }
 .about-img-2 { background: linear-gradient(160deg, #1e2428 0%, #2e3840 100%); }
 
@@ -717,7 +721,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
 ================================================================ */
 .contact {
   background: var(--white);
-  padding: 80px 24px;
+  padding: 80px 24px 0;  /* no bottom padding — location block sits flush */
 }
 
 /* NEW OUTER BOX */
@@ -1222,15 +1226,129 @@ footer {
 
 
 /* ================================================================
-   14. RESPONSIVE STYLES
-
-   Two breakpoints:
-   Tablet  — max-width: 1024px
-   Mobile  — max-width: 700px
-
-   Rule: never override layout inside a section's own CSS block.
-   All responsive overrides live here so they're easy to find.
+   10b. LOCATION — embedded at the bottom of Contact section.
+   Full-width, edge-to-edge. Info panel left, map right.
+   No rounded container — bleeds to viewport edges like the
+   original standalone version, but lives inside .contact.
 ================================================================ */
+.contact-location {
+  /* pull out of the contact's 24px side padding so it goes edge-to-edge */
+  margin: 64px -24px 0;
+  width: calc(100% + 48px);
+}
+
+.contact-location-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  min-height: 420px;
+}
+
+/* Left info panel — off-white background, generous padding */
+.location-info-card {
+  background: var(--off-white);
+  padding: 64px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.location-card-heading {
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.location-body {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--mid);
+  margin: 0;
+  max-width: 340px;
+}
+
+.location-details {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.location-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.location-detail-item svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  stroke: var(--accent);
+}
+.location-detail-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 4px;
+}
+.location-detail-value {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.65;
+  font-weight: 400;
+}
+a.location-link {
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.2s;
+}
+a.location-link:hover { color: var(--accent); }
+
+.btn-directions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  background: var(--text);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 4px;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-directions:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Right: map fills its cell completely */
+/* Right: map in a padded, rounded container like the about photo */
+.location-map {
+  background: var(--off-white);
+  padding: 32px;
+  display: flex;
+  align-items: stretch;
+}
+.location-map-iframe {
+  flex: 1;
+  border: 0;
+  border-radius: 12px;
+  min-height: 360px;
+  display: block;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  filter: grayscale(15%);
+  transition: filter 0.4s;
+}
+.location-map:hover .location-map-iframe { filter: grayscale(0%); }
+
+/* ================================================================
+   14. RESPONSIVE STYLES
 
 /* ── TABLET (max 1024px) ──────────────────────────────────────── */
 @media (max-width: 1024px) {
@@ -1253,11 +1371,16 @@ footer {
   /* Stats: 2 columns instead of 4 */
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
 
-  /* About: stack images above text */
-  .about             { grid-template-columns: 1fr; }
-  .about-images      { min-height: 320px; }
-  .about-img         { min-height: 320px; }
-  .about-text        { padding: 64px 40px; }
+  /* About: stack image above text, keep the padding/rounded image */
+  .about             { grid-template-columns: 1fr; padding: 36px 32px; }
+  .about-images      { padding: 0 0 24px 0; }
+  .about-img         { min-height: 300px; }
+  .about-text        { padding: 32px 8px 8px; }
+
+  /* Location inside contact: stack on tablet, fix edge-to-edge margin */
+  .contact-location         { margin: 48px -24px 0; width: calc(100% + 48px); }
+  .contact-location-wrapper { grid-template-columns: 1fr; }
+  .location-map             { min-height: 300px; }
 
   /* Social: narrower left panel */
   .social-section { grid-template-columns: 220px 1fr; }
@@ -1331,16 +1454,21 @@ footer {
   .strip-card { width: 170px; }
   .strip-img  { height: 170px; }
 
-  /* ABOUT: stack image above text on mobile */
-  .about-images { display: grid; grid-template-columns: 1fr 1fr; min-height: 220px; }
-  .about-img    { min-height: 220px; }
-  .about        { grid-template-columns: 1fr; }
-  .about-text   { padding: 40px 24px 48px; gap: 16px; }
+  /* ABOUT: hide image on mobile, full-width text */
+  .about-images { display: none; }
+  .about        { grid-template-columns: 1fr; padding: 32px 20px; }
+  .about-text   { padding: 0; gap: 16px; }
   .about-text h2{ font-size: 28px; }
   .about-body   { font-size: 14px; max-width: 100%; }
 
+  /* LOCATION inside contact: stacked on mobile, fix margins for mobile padding */
+  .contact-location          { margin: 32px -16px 0; width: calc(100% + 32px); }
+  .contact-location-wrapper  { grid-template-columns: 1fr; }
+  .location-info-card        { padding: 36px 24px; gap: 16px; }
+  .location-map              { min-height: 260px; }
+
   /* CONTACT: stack form fields */
-  .contact            { padding: 40px 16px; }
+  .contact            { padding: 40px 16px 0; }
   .contact-wrapper {
     padding: 40px 24px;
     border-radius: 24px;
