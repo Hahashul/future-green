@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  products.html — Future Green Product Catalogue
+  ──────────────────────────────────────────────────────────────
+  ONE FILE handles three views driven by URL params:
+
+    products.html              → all 22 products
+    products.html?cat=cob      → COB Spotlights only
+    products.html?id=lotus-concealed → product detail page
+
+  Category slug → JSON category mapping:
+    cob       → COB Spotlight
+    panel     → Recessed Slim Panel, Surface Panel
+    downlight → Downlight, Designer · Dual-Colour
+    flood     → Outdoor · Flood
+    street    → Outdoor · Street, Outdoor · Wall
+    rope      → Flexible, Power
+
+  ALSO UPDATE index.html category hrefs (search cat-cell):
+    COB        → href="products.html?cat=cob"
+    Flood      → href="products.html?cat=flood"
+    Downlights → href="products.html?cat=downlight"
+    Panels     → href="products.html?cat=panel"
+    Rope       → href="products.html?cat=rope"
+    Street     → href="products.html?cat=street"
+============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — Future Green | LED Lighting India</title>
+  <meta name="description" content="Browse the complete Future Green LED catalogue — COB spotlights, panel lights, flood lights, street lights, rope light and more. 2-year warranty." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <!-- Shared site styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+  /* ================================================================
+     PRODUCTS PAGE — extra styles (catalogue-specific only)
+     All base variables, nav, footer, WhatsApp button etc.
+     are inherited from style.css exactly as on index.html.
+  ================================================================ */
+
+  /* ── PAGE HEADER ──────────────────────────────────────────── */
+  .prod-header {
+    padding-top: var(--nav-height);
+    background: var(--off-white);
+  }
+  .prod-header-inner {
+    padding: 20px 50px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .prod-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .prod-header-inner h1 {
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 4px;
+  }
+  .prod-header-sub {
+    font-size: 14px;
+    color: var(--mid);
+    max-width: 500px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .prod-header-actions {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .btn-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--text);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-pdf:hover { background: #333; transform: translateY(-2px); }
+
+  /* mobile filter button */
+  .btn-mobile-filter {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--white);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-mobile-filter:hover { border-color: var(--text); background: var(--off-white); }
+  .btn-mobile-filter svg { color: var(--text); }
+
+  /* ── MAIN LAYOUT ──────────────────────────────────────────── */
+  .prod-layout {
+    display: grid;
+    grid-template-columns: 232px 1fr;
+    align-items: start;
+    min-height: 60vh;
+  }
+
+  /* ── SIDEBAR ──────────────────────────────────────────────── */
+  .prod-sidebar {
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+    padding: 28px 20px 40px;
+    border-right: 1px solid var(--border);
+    background: var(--white);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .sidebar-heading {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 16px;
+    display: block;
+    padding: 0 8px;
+  }
+  .sidebar-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  .sidebar-close-x {
+    display: none;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 14px;
+    color: var(--mid);
+    cursor: pointer;
+    line-height: 1.4;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .sidebar-close-x:hover { border-color: var(--text); color: var(--text); }
+  @media (max-width: 700px) {
+    .sidebar-close-x { display: block; }
+  }
+  .cat-filter-list { list-style: none; }
+  .cat-filter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text);
+    text-align: left;
+    transition: background 0.15s;
+  }
+  .cat-filter-btn:hover { background: var(--off-white); }
+  .cat-filter-btn.active {
+    background: var(--text);
+    color: var(--white);
+    font-weight: 700;
+  }
+  .cat-count {
+    font-size: 11px;
+    opacity: 0.45;
+    font-weight: 400;
+  }
+  .cat-filter-btn.active .cat-count { opacity: 0.55; }
+
+  /* ── PRODUCTS MAIN AREA ───────────────────────────────────── */
+  .prod-main {
+    padding: 28px 40px 60px;
+    background: var(--white);
+  }
+  .prod-results-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    min-height: 32px;
+  }
+  .prod-count {
+    font-size: 13px;
+    color: var(--mid);
+    flex: 1;
+  }
+  .prod-count strong { color: var(--text); }
+
+  /* ── PRODUCT GRID ─────────────────────────────────────────── */
+  .prod-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* ── PRODUCT CARD ─────────────────────────────────────────── */
+  .prod-card {
+    background: var(--off-white);
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid transparent;
+    transition: border-color 0.25s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s;
+    cursor: pointer;
+  }
+  .prod-card:hover {
+    border-color: var(--border);
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  }
+  /* placeholder when product image is missing */
+  .prod-card-img {
+    aspect-ratio: 1;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='%23d0ccc5' stroke-width='1.2'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpolyline points='21 15 16 10 5 21'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 48px 48px;
+  }
+  .prod-card-img img {
+    max-width: 85%;
+    max-height: 240px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 20px rgba(0,0,0,0.18));
+    transition: transform 0.4s ease;
+    display: block;
+  }
+  .prod-card:hover .prod-card-img img {
+    transform: scale(1.07) translateY(-4px);
+  }
+  .prod-card-body {
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.5);
+  }
+  .prod-card-cat {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .prod-card-name {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text);
+    margin: 0;
+  }
+  .prod-card-tagline {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .prod-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    margin-top: 4px;
+  }
+  .prod-card-watts {
+    font-size: 11px;
+    color: var(--mid);
+  }
+
+  /* finish dots (small, on card) */
+  .finish-dots {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .finish-dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  /* empty state */
+  .prod-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--mid);
+  }
+  .prod-empty p { font-size: 16px; margin-top: 8px; }
+  .prod-empty-link {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    text-decoration: underline;
+  }
+
+
+  /* ================================================================
+     DETAIL VIEW
+  ================================================================ */
+  #detailView {
+    padding-top: var(--nav-height);
+  }
+
+  /* breadcrumb */
+  .detail-breadcrumb {
+    padding: 18px 50px;
+    font-size: 12px;
+    color: var(--mid);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+  }
+  .detail-breadcrumb a {
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .detail-breadcrumb a:hover { color: var(--text); }
+  .detail-breadcrumb .bc-sep { color: var(--border); font-size: 14px; }
+  .detail-breadcrumb .bc-current { color: var(--text); font-weight: 600; }
+
+  /* two-column layout */
+  .detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - var(--nav-height) - 48px);
+  }
+
+  /* left: sticky image panel */
+  .detail-img-panel {
+    background: var(--off-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px;
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
+  }
+  .detail-img-panel img {
+    max-width: 100%;
+    max-height: 460px;
+    object-fit: contain;
+    filter: drop-shadow(0 24px 64px rgba(0,0,0,0.22));
+  }
+
+  /* right: info panel */
+  .detail-info {
+    padding: 52px 60px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+  }
+  .detail-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .detail-name {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(26px, 3.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .detail-tagline {
+    font-size: 16px;
+    color: var(--mid);
+    line-height: 1.7;
+    margin: 0;
+  }
+  .detail-desc {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.85;
+    margin: 0;
+  }
+  .detail-rule {
+    height: 1px;
+    background: var(--border);
+    border: none;
+    margin: 0;
+  }
+
+  /* spec row label */
+  .detail-spec-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  /* wattage chips */
+  .watt-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .watt-chip {
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 16px;
+    background: #f0f0ee;
+    border: 1.5px solid #d0cdc8;
+    border-radius: 20px;
+    color: var(--text);
+  }
+
+  /* finish swatches (larger on detail) */
+  .finish-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .finish-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .finish-swatch-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .finish-swatch-dot:hover {
+    transform: scale(1.18);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .finish-swatch-code {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--mid);
+  }
+
+  /* features list */
+  .features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+  }
+  .features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .features-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* warranty badge */
+  .warranty-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(120,183,40,0.07);
+    border: 1px solid rgba(120,183,40,0.22);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 9px 16px;
+    border-radius: 6px;
+    align-self: flex-start;
+  }
+
+  /* specs accordion */
+  .specs-accordion {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .specs-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: var(--off-white);
+    border: none;
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    transition: background 0.2s;
+  }
+  .specs-toggle:hover { background: var(--light-bg); }
+  .specs-toggle svg { transition: transform 0.3s ease; }
+  .specs-toggle.open svg { transform: rotate(180deg); }
+  .specs-body {
+    display: none;
+    padding: 20px 20px 16px;
+    border-top: 1px solid var(--border);
+  }
+  .specs-body.open { display: block; }
+  .specs-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .specs-table tr { border-bottom: 1px solid var(--border); }
+  .specs-table tr:last-child { border-bottom: none; }
+  .specs-table td { padding: 10px 0; vertical-align: top; }
+  .specs-table td:first-child { color: var(--mid); width: 38%; font-weight: 400; }
+  .specs-table td:last-child { color: var(--text); font-weight: 600; }
+
+  /* CTA buttons */
+  .detail-ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-wa-enquiry {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--wa-green);
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 14px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-wa-enquiry:hover { opacity: 0.88; transform: translateY(-2px); }
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--off-white);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-back:hover { background: var(--border); transform: translateY(-2px); }
+
+  /* related products section */
+  .related-section {
+    padding: 60px 50px;
+    background: var(--off-white);
+    border-top: 1px solid var(--border);
+  }
+  .related-heading {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  /* mobile filter row — hidden on desktop */
+  .mobile-filter-row {
+    display: none;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--off-white);
+  }
+
+  /* mobile sidebar backdrop */
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 399;
+  }
+  .sidebar-backdrop.open { display: block; }
+
+  /* mobile sidebar close button */
+  .sidebar-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s;
+  }
+  .sidebar-close-btn:hover { background: var(--off-white); }
+
+
+  /* ================================================================
+     PRINT / PDF STYLES
+     window.print() generates a clean A4 PDF catalogue
+  ================================================================ */
+  @media print {
+    nav, footer, .whatsapp-float,
+    .prod-sidebar, .prod-header-actions,
+    .search-bar-row, .btn-back,
+    .detail-ctas, .specs-accordion,
+    .prod-results-row, .related-section { display: none !important; }
+
+    body { font-size: 12px; color: #000 !important; }
+
+    .prod-layout { display: block !important; }
+    .prod-header-inner { padding: 12px 0; border: none; }
+    .prod-main { padding: 0; }
+
+    .prod-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 12px !important;
+    }
+    .prod-card {
+      break-inside: avoid;
+      transform: none !important;
+      box-shadow: none !important;
+      border: 1px solid #ddd !important;
+    }
+    .prod-card-img { padding: 12px; aspect-ratio: unset; height: 120px; }
+    .prod-card-img img { max-height: 100px; }
+
+    @page { size: A4; margin: 15mm 12mm; }
+  }
+
+
+  /* ================================================================
+     RESPONSIVE
+  ================================================================ */
+  @media (max-width: 1024px) {
+    .prod-layout { grid-template-columns: 196px 1fr; }
+    .prod-main { padding: 24px 28px 48px; }
+    .prod-grid { grid-template-columns: repeat(2, 1fr); }
+    .detail-layout { grid-template-columns: 1fr 1fr; }
+    .detail-info { padding: 40px 36px 60px; }
+    .related-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 700px) {
+    .prod-header-inner { padding: 20px 20px 16px; flex-direction: column; align-items: flex-start; }
+    .mobile-filter-row { display: block; }
+    .btn-mobile-filter { display: flex; }
+
+    .prod-layout { grid-template-columns: 1fr; }
+
+    .prod-sidebar {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 400;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 72px 24px 40px;
+    }
+    .prod-sidebar.open { display: block; }
+
+    .prod-main { padding: 20px 16px 48px; }
+    .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+    .detail-breadcrumb { padding: 14px 20px; }
+    .detail-layout { grid-template-columns: 1fr; }
+    .detail-img-panel {
+      position: relative;
+      height: 300px;
+      padding: 32px;
+      top: 0;
+    }
+    .detail-info { padding: 28px 20px 48px; gap: 18px; }
+    .detail-name { font-size: 28px; }
+    .detail-tagline { font-size: 14px; }
+
+    .related-section { padding: 40px 20px; }
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  </style>
+</head>
+
+<body>
+
+  <!-- skip link (accessibility) -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ══════════════════════════════════════════════════════════
+       NAV — same structure as index.html, but always nav-solid
+       (no full-screen hero on this page).
+       Links back to index.html#sections where needed.
+  ══════════════════════════════════════════════════════════ -->
+  <nav id="mainNav" class="nav-solid" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo-link" aria-label="Future Green — homepage">
+      <img src="resources/logo.png" alt="Future Green logo" class="nav-logo-img" />
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html#categories">Categories</a></li>
+      <li><a href="products.html" class="nav-products-active">Products</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button id="hamburger" class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+    <ul role="list">
+      <li><a href="index.html#categories">Categories</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li>
+        <a href="https://wa.me/919039099107" class="mobile-whatsapp" target="_blank" rel="noopener">WhatsApp Us</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       LISTING VIEW
+       Shown when URL is products.html or products.html?cat=…
+  ══════════════════════════════════════════════════════════ -->
+  <div id="listingView">
+
+    <!-- Page header -->
+    <div class="prod-header">
+      <div class="prod-header-inner">
+        <div>
+          <span class="prod-eyebrow" id="listEyebrow">Full Catalogue</span>
+          <h1 id="listTitle">All Products</h1>
+          <p class="prod-header-sub" id="listSub">Browse our complete range of LED lighting solutions.</p>
+        </div>
+        <div class="prod-header-actions">
+          <button class="btn-pdf" onclick="window.print()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Catalogue
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile filter button (shown only on mobile) -->
+      <div class="mobile-filter-row" id="mobileFilterRow">
+        <button class="btn-mobile-filter" onclick="openSidebar()" aria-label="Open category filter">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+          Filter by Category
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile sidebar backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+    <div class="prod-layout">
+
+      <!-- Sidebar filter -->
+      <aside class="prod-sidebar" id="prodSidebar" aria-label="Category filters">
+        <div class="sidebar-mobile-header">
+          <span class="sidebar-heading" style="margin:0">Categories</span>
+          <button onclick="closeSidebar()" class="sidebar-close-x" aria-label="Close filters">✕</button>
+        </div>
+        <ul class="cat-filter-list" id="catList" role="list">
+          <!-- built by JS -->
+        </ul>
+      </aside>
+
+      <!-- Main grid -->
+      <main class="prod-main" id="main-content">
+        <div class="prod-results-row">
+          <p class="prod-count" id="prodCount"></p>
+        </div>
+        <div class="prod-grid" id="prodGrid">
+          <!-- cards injected by JS -->
+        </div>
+      </main>
+
+    </div>
+  </div><!-- /listingView -->
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       DETAIL VIEW
+       Shown when URL is products.html?id=some-product-id
+       Hidden by default — JS swaps visibility.
+  ══════════════════════════════════════════════════════════ -->
+  <div id="detailView" style="display:none" aria-live="polite">
+
+    <!-- Breadcrumb removed per user request -->
+
+    <div class="detail-layout">
+
+      <!-- Left: sticky image -->
+      <div class="detail-img-panel">
+        <img id="detailImg" src="" alt="" />
+      </div>
+
+      <!-- Right: info -->
+      <div class="detail-info">
+        <div>
+          <p class="detail-eyebrow" id="detailCat"></p>
+          <h1 class="detail-name" id="detailName"></h1>
+        </div>
+
+        <p class="detail-tagline" id="detailTagline"></p>
+        <p class="detail-desc"    id="detailDesc"></p>
+
+        <hr class="detail-rule" />
+
+        <!-- Wattages -->
+        <div id="wattsBlock">
+          <span class="detail-spec-label">Available Wattages</span>
+          <div class="watt-chips" id="detailWatts"></div>
+        </div>
+
+        <!-- Finishes -->
+        <div id="finishesBlock">
+          <span class="detail-spec-label">Colour Finishes</span>
+          <div class="finish-swatches" id="detailFinishes"></div>
+        </div>
+
+        <!-- Features -->
+        <div id="featuresBlock">
+          <span class="detail-spec-label">Key Features</span>
+          <ul class="features-list" id="detailFeatures"></ul>
+        </div>
+
+        <hr class="detail-rule" />
+
+        <!-- Warranty -->
+        <div class="warranty-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          2-Year Warranty on every product
+        </div>
+
+        <!-- Specs accordion -->
+        <div class="specs-accordion">
+          <button class="specs-toggle" id="specsToggle" onclick="toggleSpecs()" aria-expanded="false">
+            Full Specifications
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="specs-body" id="specsBody" role="region"></div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="detail-ctas">
+          <a id="waBtn" href="#" class="btn-wa-enquiry" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.107 1.51 5.833L.057 23.032a.75.75 0 00.921.916l5.205-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.724 1.034 1.053-3.635-.234-.374A9.818 9.818 0 1112 21.818z"/>
+            </svg>
+            Enquire on WhatsApp
+          </a>
+        </div>
+
+      </div><!-- /detail-info -->
+    </div><!-- /detail-layout -->
+
+    <!-- Related products -->
+    <div class="related-section" id="relatedSection">
+      <h2 class="related-heading">More in this category</h2>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+
+  </div><!-- /detailView -->
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER — same as index.html
+  ══════════════════════════════════════════════════════════ -->
+  <footer role="contentinfo">
+    <div class="footer-top">
+      <img src="resources/logo.png" alt="Future Green" class="footer-logo" />
+      <p class="footer-tagline">World Will Glow</p>
+    </div>
+    <div class="footer-location-row">
+      <div class="footer-loc-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span>A-09, IT Park, Badwai, Bhopal — Madhya Pradesh, India</span>
+      </div>
+      <div class="footer-loc-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <a href="mailto:contact@futuregreenindia.com">contact@futuregreenindia.com</a>
+      </div>
+      <div class="footer-loc-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+        <a href="tel:+919039099107">+91 9039099107</a>
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul role="list">
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#contact">Get in Touch</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Products</h3>
+        <ul role="list">
+          <li><a href="products.html?cat=cob">COB Spotlights</a></li>
+          <li><a href="products.html?cat=panel">Panel Lights</a></li>
+          <li><a href="products.html?cat=flood">Flood Lights</a></li>
+          <li><a href="products.html?cat=downlight">Downlights</a></li>
+          <li><a href="products.html?cat=street">Street Lights</a></li>
+          <li><a href="products.html?cat=rope">Rope &amp; Strip</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Support</h3>
+        <ul role="list">
+          <li><a href="index.html#contact">Dealer Enquiry</a></li>
+          <li><a href="index.html#contact">Bulk Order</a></li>
+          <li><a href="tel:+919039099107">+91 9039099107</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Follow Us</h3>
+        <div class="footer-socials">
+          <a href="https://instagram.com/fgledindia" aria-label="Instagram" class="footer-social-link" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            <span>Instagram</span>
+          </a>
+          <a href="https://facebook.com/fgledindia" aria-label="Facebook" class="footer-social-link" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span>Facebook</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="copyrightYear"></span> Future Green. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp float button -->
+  <a href="https://wa.me/919039099107" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.107 1.51 5.833L.057 23.032a.75.75 0 00.921.916l5.205-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.724 1.034 1.053-3.635-.234-.374A9.818 9.818 0 1112 21.818z"/>
+    </svg>
+  </a>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       SCRIPT
+       All catalogue logic — data loading, rendering, filtering,
+       search, detail view, WhatsApp pre-fill, nav hamburger.
+  ══════════════════════════════════════════════════════════ -->
+  <script>
+  /* ================================================================
+     DATA + CONSTANTS
+  ================================================================ */
+
+  /* Finish dot colours — code → { bg, border, label } */
+  const FINISH = {
+    WW:  { bg: '#F5C518', bd: '#D4A000', lbl: 'Warm White'    },
+    WH:  { bg: '#DFF0FF', bd: '#A8CCF0', lbl: 'Cool White'    },
+    NW:  { bg: '#F5F0E4', bd: '#D8D0BC', lbl: 'Natural White' },
+    R:   { bg: '#E74C3C', bd: '#C0392B', lbl: 'Red'           },
+    B:   { bg: '#3B82F6', bd: '#2563EB', lbl: 'Blue'          },
+    G:   { bg: '#22C55E', bd: '#16A34A', lbl: 'Green'         },
+    P:   { bg: '#EC4899', bd: '#DB2777', lbl: 'Pink'          },
+    IB:  { bg: '#93C5FD', bd: '#60A5FA', lbl: 'Ice Blue'      },
+    YG:  { bg: '#F59E0B', bd: '#D97706', lbl: 'Golden'        },
+  };
+
+  /* 6 homepage categories + "All" → their JSON category strings */
+  const CATS = [
+    { slug: 'all',       label: 'All Products',  json: null,
+      sub: 'Browse the complete Future Green LED range — all 22 products.' },
+    { slug: 'cob',       label: 'COB Spotlights', json: ['COB Spotlight'],
+      sub: 'Precision-adjustable COB spotlights for accent lighting and architectural features.' },
+    { slug: 'panel',     label: 'Panel Lights',   json: ['Recessed Slim Panel', 'Surface Panel'],
+      sub: 'Slim recessed and surface panels for smooth, comfortable ceiling illumination.' },
+    { slug: 'downlight', label: 'Downlights',     json: ['Downlight', 'Designer · Dual-Colour'],
+      sub: 'Recessed and dual-colour downlights for every room and ceiling type.' },
+    { slug: 'flood',     label: 'Flood Lights',   json: ['Outdoor · Flood'],
+      sub: 'High-power outdoor floodlights for facades, yards and security installations.' },
+    { slug: 'street',    label: 'Street Lights',  json: ['Outdoor · Street', 'Outdoor · Wall'],
+      sub: 'Road-optimised street lights and outdoor wall lights for urban and campus use.' },
+    { slug: 'rope',      label: 'Rope & Strip',   json: ['Flexible', 'Power'],
+      sub: 'Flexible rope and LED strip lighting, plus the SMPS drivers to power them.' },
+  ];
+
+  /* State */
+  var PRODUCTS   = [];
+  let activeCat  = 'all';
+
+  /* ================================================================
+     BOOT — fetch JSON then decide listing or detail
+  ================================================================ */
+  /* ================================================================
+     PRODUCT DATA — embedded directly (no external JSON file needed)
+  ================================================================ */
+  PRODUCTS = [
+    {
+      id: 'lotus-concealed',
+      name: 'Lotus Concealed',
+      category: 'COB Spotlight',
+      tagline: 'Adjustable COB spot that aims light exactly where you want.',
+      description: 'The Lotus Concealed is an ultra-slim recessed COB spotlight with a fully adjustable head. Ideal for accent lighting in galleries, retail displays, and premium residential projects.',
+      wattages: [3, 6],
+      finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+      shapes: ['Round'],
+      features: ['High CRI ≥90', 'Adjustable beam direction', 'Concealed recessed installation', 'Flicker-free driver'],
+      warranty: '2-year'
+    },
+    {
+      id: 'lily-cob-downlight',
+      name: 'Lily COB Downlight',
+      category: 'COB Spotlight',
+      tagline: 'Tiny COB downlight with a big, crisp punch.',
+      description: 'A compact recessed COB downlight that delivers a sharp, focused beam from a very small aperture. Perfect for tight ceiling cuts and accent work in residential and retail spaces.',
+      wattages: [2, 5],
+      finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+      shapes: ['Round'],
+      features: ['Compact aperture', 'High CRI ≥90', 'Crisp focused beam', 'Multiple colour finishes'],
+      warranty: '2-year'
+    },
+    {
+      id: 'marigold-cob-spotlight',
+      name: 'Marigold COB Spotlight',
+      category: 'COB Spotlight',
+      tagline: 'Square-trim COB spot with a tilting head.',
+      description: 'The Marigold COB Spotlight features a square trim ring and a fully tilting head, giving designers the flexibility to highlight artwork, products, and architectural details with precision.',
+      wattages: [3, 6],
+      finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+      shapes: ['Square'],
+      features: ['Square trim ring', 'Tilting head', 'High CRI ≥90', 'Anti-glare design'],
+      warranty: '2-year'
+    },
+    {
+      id: 'bluebell-cob-spotlight',
+      name: 'Bluebell COB Spotlight',
+      category: 'COB Spotlight',
+      tagline: 'Deep-recess COB spotlight built to throw.',
+      description: 'The Bluebell is a deep-recess COB spotlight engineered for long-throw accent lighting. Its deep housing minimises glare and concentrates the beam for dramatic effect.',
+      wattages: [2, 5],
+      finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+      shapes: ['Round'],
+      features: ['Deep-recess housing', 'Long-throw beam', 'Minimal glare', 'High CRI ≥90'],
+      warranty: '2-year'
+    },
+    {
+      id: 'iris-slim-panel',
+      name: 'IRIS Slim Panel',
+      category: 'Recessed Slim Panel',
+      tagline: 'Frameless flush light that disappears into the ceiling.',
+      description: 'The IRIS Slim Panel has a fully frameless design that blends seamlessly into any false ceiling. Ultra-thin profile, even light distribution, and easy clip-in installation.',
+      wattages: [3, 8, 12, 18, 22],
+      finishes: ['WW', 'WH', 'NW'],
+      shapes: ['Square', 'Rectangle'],
+      features: ['Frameless flush design', 'Uniform light distribution', 'Clip-in installation', 'Flicker-free'],
+      warranty: '2-year'
+    },
+    {
+      id: 'ilex-pc-slim-panel',
+      name: 'ILEX PC Slim Panel',
+      category: 'Recessed Slim Panel',
+      tagline: 'The IRIS panel, toughened with a polycarbonate body.',
+      description: 'The ILEX takes the IRIS Slim Panel design and reinforces it with a polycarbonate body for extra durability. Ideal for high-traffic areas, schools, and commercial spaces.',
+      wattages: [8, 12, 18, 22],
+      finishes: ['WW', 'WH', 'NW'],
+      shapes: ['Square', 'Rectangle'],
+      features: ['Polycarbonate body', 'Impact-resistant', 'Uniform light distribution', 'Easy installation'],
+      warranty: '2-year'
+    },
+    {
+      id: 'iris-surface-panel',
+      name: 'IRIS Surface Panel',
+      category: 'Surface Panel',
+      tagline: 'All the panel light — none of the ceiling cutting.',
+      description: 'The IRIS Surface Panel brings the clean, frameless aesthetic of the IRIS Slim Panel to surface mounting. No false ceiling required — simply fix directly to the ceiling or wall.',
+      wattages: [8, 12, 18, 22],
+      finishes: ['WW', 'WH', 'NW'],
+      shapes: ['Square', 'Rectangle'],
+      features: ['No ceiling cutting needed', 'Surface or wall mount', 'Integrated driver', 'Frameless look'],
+      warranty: '2-year'
+    },
+    {
+      id: 'ilex-surface-panel',
+      name: 'ILEX Surface Panel',
+      category: 'Surface Panel',
+      tagline: 'Rugged PC surface light for everyday spaces.',
+      description: 'A robust polycarbonate surface panel for areas where durability counts. Easy to fit, resistant to impact, and suitable for corridors, utility rooms, garages, and commercial interiors.',
+      wattages: [6, 12, 18],
+      finishes: ['WW', 'WH', 'NW'],
+      shapes: ['Square', 'Rectangle'],
+      features: ['Polycarbonate housing', 'Impact-resistant', 'Direct surface mount', 'Long 50,000 hr life'],
+      warranty: '2-year'
+    },
+    {
+      id: 'couple-slim-panel',
+      name: 'Couple Slim Panel',
+      category: 'Designer · Dual-Colour',
+      tagline: 'Two lights in one — white core, colour halo.',
+      description: 'The Couple Slim Panel combines a white central light with a coloured halo ring. Switch between white-only and dual-colour modes to create dramatic, decorative ceiling effects.',
+      wattages: [3, 6, 9, 12, 16],
+      finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+      shapes: ['Round'],
+      features: ['Dual-colour white + halo', 'Mode switching', 'Decorative ceiling effect', 'Multiple colour options'],
+      warranty: '2-year'
+    },
+    {
+      id: 'surface-couple-duo-panel',
+      name: 'Surface Couple Duo',
+      category: 'Designer · Dual-Colour',
+      tagline: 'The dual-colour Couple, in a surface-mount body.',
+      description: 'All the visual drama of the Couple Slim Panel in a surface-mount housing. No ceiling void needed — perfect for feature rooms, hospitality, and retail environments.',
+      wattages: [3, 6, 9, 12, 16],
+      finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+      shapes: ['Round'],
+      features: ['Surface-mount housing', 'Dual-colour effect', 'No ceiling void needed', 'Multiple colour options'],
+      warranty: '2-year'
+    },
+    {
+      id: 'deep-junction-duo-clr',
+      name: 'Deep Junction Duo CLR',
+      category: 'Designer · Dual-Colour',
+      tagline: 'Dual-colour deep downlight for standard junction boxes.',
+      description: 'A deep recessed dual-colour downlight designed to fit standard electrical junction boxes. The deep housing hides glare while the colour halo adds a decorative touch to any room.',
+      wattages: [6, 9, 12, 16],
+      finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+      shapes: ['Round'],
+      features: ['Fits standard junction boxes', 'Deep anti-glare housing', 'Dual-colour effect', 'Easy retrofit'],
+      warranty: '2-year'
+    },
+    {
+      id: 'frameless-downlight',
+      name: 'Frameless Downlight',
+      category: 'Downlight',
+      tagline: 'Surface-mount glow with no visible frame.',
+      description: 'The Frameless Downlight has a bezel-free design that creates a floating glow effect. Wide beam angle, smooth dimming, and a clean flush finish for modern interiors.',
+      wattages: [10, 15, 18, 24],
+      finishes: ['WW', 'WH', 'NW'],
+      shapes: ['Round'],
+      features: ['Frameless bezel-free design', 'Wide 120° beam', 'Dimmable', 'High CRI ≥80'],
+      warranty: '2-year'
+    },
+    {
+      id: 'tulip-deep-light',
+      name: 'Tulip Deep Light',
+      category: 'Downlight',
+      tagline: 'Deep-set downlight that hides the glare.',
+      description: 'The Tulip Deep Light uses a deep recessed housing to push the light source well inside the ceiling, eliminating glare and creating a comfortable, diffused glow for living and work spaces.',
+      wattages: [3, 5, 7, 9, 12],
+      finishes: ['WW', 'WH', 'NW'],
+      shapes: ['Round'],
+      features: ['Deep anti-glare housing', 'Comfortable diffused light', 'Easy spring-clip install', 'Dimmable'],
+      warranty: '2-year'
+    },
+    {
+      id: 'dob-floodlight',
+      name: 'DOB Floodlight',
+      category: 'Outdoor · Flood',
+      tagline: 'Driver-on-board flood that lights up the whole yard.',
+      description: 'The DOB (Driver-on-Board) Floodlight integrates the driver directly into the fitting for a compact, reliable build. High-lumen output and IP65 weatherproofing for demanding outdoor use.',
+      wattages: [50, 100, 150, 200],
+      finishes: ['WH'],
+      shapes: ['Rectangular'],
+      features: ['Integrated DOB driver', 'IP65 weatherproof', 'High-lumen output', 'Die-cast aluminium housing'],
+      warranty: '2-year'
+    },
+    {
+      id: 'richline-flood-light',
+      name: 'Richline Flood Light',
+      category: 'Outdoor · Flood',
+      tagline: 'Slim premium flood for facades and frontage.',
+      description: 'The Richline is a slim, architecturally refined floodlight for building facades, landscape lighting, and entrance areas. A low-profile body and tempered glass lens give it a premium appearance.',
+      wattages: [50, 100, 150, 200],
+      finishes: ['WH'],
+      shapes: ['Rectangular'],
+      features: ['Slim profile design', 'IP65 rated', 'Tempered glass lens', 'Adjustable bracket'],
+      warranty: '2-year'
+    },
+    {
+      id: 'street-light',
+      name: 'Street Light',
+      category: 'Outdoor · Street',
+      tagline: 'Roads, lanes and campuses — lit clean and bright.',
+      description: 'Engineered for road-surface photometry, this street light delivers wide, uniform illumination across roads, lanes, and campus paths. Die-cast aluminium housing with high surge protection.',
+      wattages: [24, 36, 50, 80, 100],
+      finishes: ['WH'],
+      shapes: ['Arm-mount'],
+      features: ['Road-optimised optics', 'IP65 rated', 'Die-cast aluminium', 'Surge protection 10 kV'],
+      warranty: '2-year'
+    },
+    {
+      id: '4-way-ball',
+      name: '4-Way Ball',
+      category: 'Outdoor · Wall',
+      tagline: 'Four crisp beams from one sculptural sphere.',
+      description: 'A bold outdoor wall light shaped like a sphere with four directional beam outlets. Casts four crisp pools of light on walls and pathways, available in 8 colour finishes.',
+      wattages: [],
+      finishes: ['WW', 'WH', 'NW', 'R', 'B', 'G', 'P', 'IB'],
+      shapes: ['Sphere'],
+      features: ['4-directional beams', '8 colour finishes', 'IP44 rated', 'Die-cast body'],
+      warranty: '2-year'
+    },
+    {
+      id: '2-way-wall-curved',
+      name: '2-Way Wall (Curved)',
+      category: 'Outdoor · Wall',
+      tagline: 'Up-and-down wash for walls and entryways.',
+      description: 'A curved-body outdoor wall light that projects light both upward and downward, creating a warm wash effect on walls and gates. Ideal for residential entrances and hotel facades.',
+      wattages: [],
+      finishes: ['WW', 'WH', 'NW'],
+      shapes: ['Curved'],
+      features: ['Up-down light wash', 'Curved premium body', 'IP44 rated', 'Easy wall mount'],
+      warranty: '2-year'
+    },
+    {
+      id: '2-way-wall-wedge',
+      name: '2-Way Wall (Wedge)',
+      category: 'Outdoor · Wall',
+      tagline: 'Sculpted wedge wall light with a warm up/down glow.',
+      description: 'A wedge-shaped outdoor wall light with an angular, architectural silhouette. Projects a warm up-and-down glow for a sophisticated look on exterior walls, pillars, and entrances.',
+      wattages: [],
+      finishes: ['WW'],
+      shapes: ['Wedge'],
+      features: ['Wedge architectural design', 'Up-down warm glow', 'IP44 rated', 'Powder-coated finish'],
+      warranty: '2-year'
+    },
+    {
+      id: 'rope-light',
+      name: 'Rope Light',
+      category: 'Flexible',
+      tagline: 'Flexible glow that bends around anything.',
+      description: 'A 360° visible LED rope light that bends in any direction. Perfect for outlining signage, architectural edges, furniture, and festive displays. Available in 8 colour options.',
+      wattages: [],
+      finishes: ['WW', 'WH', 'R', 'B', 'G', 'P', 'IB', 'YG'],
+      shapes: ['Round rope'],
+      features: ['360° visible glow', 'Bends in any direction', 'IP44 rated', 'Per-metre cutting'],
+      warranty: '2-year'
+    },
+    {
+      id: 'led-strip',
+      name: 'LED Strip',
+      category: 'Flexible',
+      tagline: 'Hidden cove and accent lighting on a reel.',
+      description: 'Professional SMD LED strip for cove lighting, under-cabinet illumination, display cases, and decorative accents. Self-adhesive backing for quick installation. Cut to length as needed.',
+      wattages: [],
+      finishes: ['WW', 'WH', 'NW'],
+      shapes: ['Strip'],
+      features: ['Self-adhesive 3M tape', 'Cut-to-length', 'IP20 / IP65 options', 'Consistent colour temperature'],
+      warranty: '2-year'
+    },
+    {
+      id: 'smps-driver',
+      name: 'SMPS Driver',
+      category: 'Power',
+      tagline: 'Stable, protected power for your LED installs.',
+      description: 'A switching-mode power supply (SMPS) for driving 12V and 24V LED strips and rope lights. Built-in short-circuit, overload, and over-voltage protection for safe, reliable operation.',
+      wattages: [],
+      finishes: [],
+      shapes: [],
+      features: ['12V / 24V DC output', 'Short-circuit protection', 'Overload protection', 'Compact metal housing'],
+      warranty: '2-year'
+    }
+  ];
+
+  init();
+
+  function init() {
+    const p = new URLSearchParams(window.location.search);
+
+    if (p.has('id')) {
+      /* ── DETAIL VIEW ── */
+      const prod = PRODUCTS.find(x => x.id === p.get('id'));
+      if (prod) showDetail(prod);
+      else window.location.href = 'products.html'; /* graceful 404 */
+    } else {
+      /* ── LISTING VIEW ── */
+      activeCat = p.get('cat') || 'all';
+      buildSidebar();
+      updateHeader();
+      renderGrid();
+    }
+
+    /* copyright year */
+    const yr = document.getElementById('copyrightYear');
+    if (yr) yr.textContent = new Date().getFullYear();
+  }
+
+
+  /* ================================================================
+     LISTING — sidebar, header, grid
+  ================================================================ */
+  function buildSidebar() {
+    const ul = document.getElementById('catList');
+    ul.innerHTML = '';
+    CATS.forEach(cat => {
+      const count = cat.json === null
+        ? PRODUCTS.length
+        : PRODUCTS.filter(p => cat.json.includes(p.category)).length;
+
+      const btn = document.createElement('button');
+      btn.className = 'cat-filter-btn' + (cat.slug === activeCat ? ' active' : '');
+      btn.setAttribute('role', 'menuitem');
+      btn.innerHTML = '<span>' + cat.label + '</span><span class="cat-count">' + count + '</span>';
+      btn.addEventListener('click', () => {
+        activeCat = cat.slug;
+        buildSidebar();
+        updateHeader();
+        renderGrid();
+        history.replaceState({}, '',
+          cat.slug === 'all' ? 'products.html' : 'products.html?cat=' + cat.slug);
+        closeSidebar();
+      });
+      ul.appendChild(btn);
+    });
+  }
+
+  function updateHeader() {
+    const cat = CATS.find(c => c.slug === activeCat) || CATS[0];
+    document.getElementById('listEyebrow').textContent = cat.slug === 'all' ? 'Full Catalogue' : 'Category';
+    document.getElementById('listTitle').textContent   = cat.label;
+    document.getElementById('listSub').textContent     = cat.sub;
+    document.title = cat.label + ' — Future Green | LED Lighting India';
+  }
+
+  function clearCat() {
+    activeCat = 'all';
+    buildSidebar();
+    updateHeader();
+    renderGrid();
+    history.replaceState({}, '', 'products.html');
+  }
+
+  function filteredProducts() {
+    const cat = CATS.find(c => c.slug === activeCat);
+    return cat && cat.json
+      ? PRODUCTS.filter(p => cat.json.includes(p.category))
+      : [...PRODUCTS];
+  }
+
+  function renderGrid() {
+    const list  = filteredProducts();
+    const grid  = document.getElementById('prodGrid');
+    const count = document.getElementById('prodCount');
+
+    count.innerHTML = 'Showing <strong>' + list.length + '</strong> product' + (list.length !== 1 ? 's' : '');
+
+    if (!list.length) {
+      grid.innerHTML =
+        '<div class="prod-empty"><p>No products match your search. ' +
+        '<button class="prod-empty-link" onclick="clearCat()">Clear filter</button></p></div>';
+      return;
+    }
+
+    grid.innerHTML = '';
+    list.forEach(p => {
+      const card = document.createElement('a');
+      card.href      = 'products.html?id=' + p.id;
+      card.className = 'prod-card';
+      card.setAttribute('aria-label', p.name);
+
+      /* finish dots — max 5 */
+      const dots = p.finishes.slice(0, 5).map(f => {
+        const c = FINISH[f] || { bg: '#ccc', bd: '#aaa', lbl: f };
+        return '<span class="finish-dot" style="background:' + c.bg +
+               ';border-color:' + c.bd + ';" title="' + c.lbl + '"></span>';
+      }).join('');
+
+      /* wattage display: first – last */
+      const watts = p.wattages && p.wattages.length
+        ? p.wattages[0] + (p.wattages.length > 1 ? ' – ' + p.wattages[p.wattages.length - 1] : '')
+        : '';
+
+      card.innerHTML =
+        '<div class="prod-card-img">' +
+          '<img src="resources/' + p.id + '.png" alt="' + p.name + '" loading="lazy" onerror="this.style.opacity=\'0\'">' +
+        '</div>' +
+        '<div class="prod-card-body">' +
+          '<span class="prod-card-cat">' + p.category + '</span>' +
+          '<h2 class="prod-card-name">' + p.name + '</h2>' +
+          '<p class="prod-card-tagline">' + p.tagline + '</p>' +
+          '<div class="prod-card-footer">' +
+            '<span class="prod-card-watts">' + watts + '</span>' +
+            '<div class="finish-dots">' + dots + '</div>' +
+          '</div>' +
+        '</div>';
+
+      grid.appendChild(card);
+    });
+  }
+
+
+  /* ================================================================
+     DETAIL VIEW
+  ================================================================ */
+  function showDetail(p) {
+    document.getElementById('listingView').style.display = 'none';
+    document.getElementById('detailView').style.display  = 'block';
+    document.title = p.name + ' — Future Green | LED Lighting India';
+
+    /* image */
+    const img = document.getElementById('detailImg');
+    img.src = 'resources/' + p.id + '.png';
+    img.alt = p.name;
+
+    /* text */
+    document.getElementById('detailCat').textContent     = p.category;
+    document.getElementById('detailName').textContent    = p.name;
+    document.getElementById('detailTagline').textContent = p.tagline;
+    document.getElementById('detailDesc').textContent    = p.description;
+
+    /* wattages */
+    if (p.wattages && p.wattages.length) {
+      document.getElementById('detailWatts').innerHTML =
+        p.wattages.map(w => '<span class="watt-chip">' + w + 'W</span>').join('');
+    } else {
+      document.getElementById('wattsBlock').style.display = 'none';
+    }
+
+    /* finishes */
+    if (p.finishes && p.finishes.length) {
+      document.getElementById('detailFinishes').innerHTML = p.finishes.map(f => {
+        const c = FINISH[f] || { bg: '#ccc', bd: '#aaa', lbl: f };
+        return '<div class="finish-swatch">' +
+          '<span class="finish-swatch-dot" style="background:' + c.bg +
+          ';border-color:' + c.bd + ';" title="' + c.lbl + '"></span>' +
+          '<span class="finish-swatch-code">' + f + '</span>' +
+          '</div>';
+      }).join('');
+    } else {
+      document.getElementById('finishesBlock').style.display = 'none';
+    }
+
+    /* features */
+    if (p.features && p.features.length) {
+      document.getElementById('detailFeatures').innerHTML =
+        p.features.map(f => '<li>' + f + '</li>').join('');
+    } else {
+      document.getElementById('featuresBlock').style.display = 'none';
+    }
+
+    /* specs table */
+    const rows = [
+      ['Category',   p.category],
+      ['Wattages',   p.wattages ? p.wattages.join(', ') : '—'],
+      ['Finishes',   p.finishes && p.finishes.length ? p.finishes.join(', ') : '—'],
+      ['Shapes',     p.shapes   && p.shapes.length   ? p.shapes.join(', ')   : '—'],
+      ['Warranty',   p.warranty || '2-year'],
+    ];
+    document.getElementById('specsBody').innerHTML =
+      '<table class="specs-table">' +
+      rows.map(r => '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td></tr>').join('') +
+      '</table>';
+
+    /* WhatsApp pre-filled message */
+    const msg = encodeURIComponent(
+      'Hi Future Green!\nI\'m interested in the *' + p.name + '* (' + p.category + ').\n' +
+      'Could you please share pricing and availability? Thank you!'
+    );
+    document.getElementById('waBtn').href = 'https://wa.me/919039099107?text=' + msg;
+
+    /* related products — same category, max 4, excluding self */
+    const related = PRODUCTS.filter(op => op.category === p.category && op.id !== p.id).slice(0, 4);
+    if (related.length) {
+      const rg = document.getElementById('relatedGrid');
+      rg.innerHTML = '';
+      related.forEach(rp => {
+        const card = document.createElement('a');
+        card.href      = 'products.html?id=' + rp.id;
+        card.className = 'prod-card';
+        const dots = rp.finishes.slice(0, 4).map(f => {
+          const c = FINISH[f] || { bg: '#ccc', bd: '#aaa', lbl: f };
+          return '<span class="finish-dot" style="background:' + c.bg + ';border-color:' + c.bd + ';" title="' + c.lbl + '"></span>';
+        }).join('');
+        card.innerHTML =
+          '<div class="prod-card-img"><img src="resources/' + rp.id + '.png" alt="' + rp.name + '" loading="lazy" onerror="this.style.opacity=\'0\'"></div>' +
+          '<div class="prod-card-body">' +
+            '<span class="prod-card-cat">' + rp.category + '</span>' +
+            '<h3 class="prod-card-name">' + rp.name + '</h3>' +
+            '<p class="prod-card-tagline">' + rp.tagline + '</p>' +
+            '<div class="prod-card-footer"><span class="prod-card-watts">' +
+            (rp.wattages[0] || '') + '</span><div class="finish-dots">' + dots + '</div></div>' +
+          '</div>';
+        rg.appendChild(card);
+      });
+    } else {
+      document.getElementById('relatedSection').style.display = 'none';
+    }
+  }
+
+  /* specs accordion */
+  function toggleSpecs() {
+    const btn  = document.getElementById('specsToggle');
+    const body = document.getElementById('specsBody');
+    const open = body.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  }
+
+
+  /* ================================================================
+     MOBILE SIDEBAR DRAWER
+  ================================================================ */
+  function openSidebar() {
+    document.getElementById('prodSidebar').classList.add('open');
+    document.getElementById('sidebarBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSidebar() {
+    document.getElementById('prodSidebar').classList.remove('open');
+    document.getElementById('sidebarBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+
+  /* ================================================================
+     NAV HAMBURGER (same logic as script.js)
+  ================================================================ */
+  (function () {
+    var hb  = document.getElementById('hamburger');
+    var mob = document.getElementById('mobileMenu');
+    if (!hb || !mob) return;
+
+    function openMenu() {
+      hb.classList.add('is-open');
+      mob.classList.add('open');
+      mob.setAttribute('aria-hidden', 'false');
+      hb.setAttribute('aria-expanded', 'true');
+      hb.setAttribute('aria-label', 'Close navigation menu');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      hb.classList.remove('is-open');
+      mob.classList.remove('open');
+      mob.setAttribute('aria-hidden', 'true');
+      hb.setAttribute('aria-expanded', 'false');
+      hb.setAttribute('aria-label', 'Open navigation menu');
+      document.body.style.overflow = '';
+    }
+
+    hb.addEventListener('click', () =>
+      mob.classList.contains('open') ? closeMenu() : openMenu());
+    mob.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeMenu(); closeSidebar(); }
+    });
+  }());
+
+  </script>
+</body>
+</html>
