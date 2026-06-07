@@ -20,7 +20,7 @@
    7.  Smooth scroll          — nav links glide instead of jumping
    8.  Secret dark mode       — click developer credit to toggle
    10. Contact form           — shows success message without reloading
-   11. Dynamic copyright year — automatically updates each year
+   10. Dynamic copyright year — automatically updates each year
 ================================================================ */
 
 
@@ -226,78 +226,6 @@ const revealObserver = new IntersectionObserver(function (entries) {
 /* Tell the observer to watch each "reveal" element */
 revealElements.forEach(function (el) { revealObserver.observe(el); });
 
-
-/* ================================================================
-   5. STATS COUNT-UP
-   ─────────────────────────────────────────────────────────────
-   The stats section shows numbers like "15+", "200+", etc.
-   Instead of showing them statically, they count up from 0
-   to their target value when the user scrolls to that section.
-   This creates a satisfying animated reveal.
-
-   HOW THE TARGET VALUES ARE SET:
-     In index.html each counter has data-target="15" (or whatever
-     the number should be). JS reads this attribute to know
-     the final value to count up to.
-
-   statsAnimated is a flag so we only animate once even if the
-   user scrolls away and back.
-
-   TO CHANGE A STAT NUMBER: find <span class="stat-count" data-target="15">
-   in index.html and change the data-target value.
-   TO CHANGE ANIMATION SPEED: edit the duration variable (1800 = 1.8s).
-================================================================ */
-
-/* All the counter <span> elements */
-const statCounters = document.querySelectorAll('.stat-count');
-/* Have we already animated? (prevents re-running on scroll back up) */
-let statsAnimated  = false;
-/* The whole stats section element */
-const statsSection = document.getElementById('stats');
-
-/* Watch for the stats section to enter the viewport */
-const statsObserver = new IntersectionObserver(function (entries) {
-  entries.forEach(function (entry) {
-    if (entry.isIntersecting && !statsAnimated) {
-      statsAnimated = true;     /* mark as done so it won't run again */
-      animateCounters();        /* start the count-up */
-      statsObserver.disconnect(); /* stop watching — no longer needed */
-    }
-  });
-}, { threshold: 0.25 }); /* trigger when 25% of the stats section is visible */
-
-if (statsSection) statsObserver.observe(statsSection);
-
-/* animateCounters() — runs the count-up animation for each number */
-function animateCounters() {
-  statCounters.forEach(function (counter) {
-    /* Read the final number from the HTML data-target attribute */
-    const target   = parseInt(counter.getAttribute('data-target'), 10);
-    const duration = 1800;           /* total animation time in milliseconds */
-    const steps    = 60;             /* how many increments to use */
-    const interval = duration / steps; /* time between each increment */
-    let   current  = 0;              /* start counting from 0 */
-
-    /* setInterval fires the callback repeatedly every `interval` ms */
-    const timer = setInterval(function () {
-      /* Ease-out effect: increment is large at start, smaller near the end.
-         Math.ceil rounds up so we always make at least 1 step of progress. */
-      const remaining = target - current;
-      const increment = Math.ceil(remaining / (steps * 0.3));
-      current = Math.min(current + increment, target); /* never overshoot */
-
-      /* Write the number to the page. toLocaleString adds comma separators
-         (e.g. 1000 → "1,000") for readability */
-      counter.textContent = current.toLocaleString();
-
-      /* Once we've hit the target, stop the interval */
-      if (current >= target) {
-        counter.textContent = target.toLocaleString(); /* ensure exact final value */
-        clearInterval(timer);
-      }
-    }, interval);
-  });
-}
 
 
 /* ================================================================
@@ -554,10 +482,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
    overrides all the colour variables, instantly re-theming
    everything (since colours are defined as CSS variables).
 
-   localStorage is like a tiny notepad in the browser — we
-   save the preference there so it survives page refreshes.
-   Next time the page loads (the code at the top below),
-   we check that notepad and re-apply dark mode if it was on.
+   Resets on page refresh — no persistence.
 
    TO FIND THE DEVELOPER CREDIT IN HTML: search for id="devCredit"
 ================================================================ */
@@ -565,25 +490,16 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
 /* Find the clickable developer name in the footer */
 const devCredit = document.getElementById('devCredit');
 
-/* On page load: check if dark mode was previously enabled and restore it */
-if (localStorage.getItem('fg-dark') === '1') {
-  document.body.classList.add('dark-mode');
-}
-
 if (devCredit) {
   devCredit.addEventListener('click', function () {
-    /* toggle() adds the class if absent, removes it if present.
-       It also returns true/false telling us the new state. */
-    const isDark = document.body.classList.toggle('dark-mode');
-
-    /* Save the new state. '1' = dark on, '0' = dark off. */
-    localStorage.setItem('fg-dark', isDark ? '1' : '0');
+    /* toggle() adds the class if absent, removes it if present. */
+    document.body.classList.toggle('dark-mode');
   });
 }
 
 
 /* ================================================================
-   10. CONTACT FORM — fetch submission
+   9. CONTACT FORM — fetch submission
    ─────────────────────────────────────────────────────────────
    Normally submitting a form reloads the whole page, which looks
    clunky. Instead we intercept the submit, send the data
@@ -654,7 +570,7 @@ if (contactForm && formSuccess) {
 
 
 /* ================================================================
-   11. DYNAMIC COPYRIGHT YEAR
+   10. DYNAMIC COPYRIGHT YEAR
    ─────────────────────────────────────────────────────────────
    The footer says "© 2025 Future Green." (or whatever year).
    Instead of manually updating it every January, this one line
@@ -671,4 +587,3 @@ if (contactForm && formSuccess) {
 const yearEl = document.getElementById('copyrightYear');
 /* Only run if the element exists (safety check) */
 if (yearEl) yearEl.textContent = new Date().getFullYear();
-JSEOF

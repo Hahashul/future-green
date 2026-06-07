@@ -64,8 +64,7 @@
 
    HOW TO TRIGGER IT:
      Click the developer credit text in the footer.
-     The preference is saved to localStorage so it persists
-     between page visits. (See Section 8 in script.js.)
+     Resets on page refresh. (See Section 8 in script.js.)
 ─────────────────────────────────────────────────────────────── */
 body.dark-mode {
   --white:     #111111;
@@ -82,15 +81,24 @@ body.dark-mode {
    Removes browser default margins/padding.
    box-sizing: border-box means padding is included in width, not added to it.
 ================================================================ */
+/* These 3 rules apply to EVERY element on the page.
+   margin:0 / padding:0 → removes the default spacing browsers add.
+   box-sizing: border-box → padding is counted INSIDE the width, not added to it.
+   Without this, adding padding to a box would make it wider than expected. */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Smooth scrolling when clicking anchor links */
-html { scroll-behavior: smooth; }
+/* Smooth scrolling is handled by script.js to avoid double-scroll on Safari */
 
+/* Body styles apply to the whole page.
+   font-family → the default text font (falls back to any sans-serif if Lato fails)
+   background / color → use CSS variables from :root above (easy to change in one place)
+   font-weight: 300 → thin/light text as default (bold is added per-element)
+   overflow-x: hidden → hides any content that sticks out sideways (fixes mobile glitches)
+   transition → smooth colour change when dark mode is toggled */
 body {
   font-family: 'Lato', sans-serif;
   background: var(--white);
@@ -510,67 +518,6 @@ nav.nav-solid .hamburger span { background: var(--text); }
   color: rgba(255,255,255,0.6);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-
-/* ================================================================
-   7. STATS PANEL
-   4 cards side by side. Numbers glow in brand green.
-   Count-up animation triggered by JS when scrolled into view.
-================================================================ */
-.stats {
-  background: var(--white);
-  padding: 40px 40px 80px;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.stat-card {
-  background: var(--off-white);
-  border: 1px solid var(--off-white);
-  border-radius: 12px;
-  padding: 40px 20px;
-  text-align: center;
-  transition: border-color 0.3s, transform 0.3s;
-}
-/* Subtle lift + green border on hover */
-.stat-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
-}
-
-.stat-number {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 2px;
-  margin-bottom: 14px;
-}
-
-/* The big number — JS writes the count-up value here */
-.stat-count {
-  font-family: 'Libre Baskerville', serif;
-  font-size: clamp(40px, 5vw, 60px);
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-  text-shadow: 0 0 30px rgba(120, 183, 40, 0.3);
-}
-.stat-suffix {
-  font-size: clamp(28px, 3vw, 38px);
-  font-weight: 700;
-  color: var(--accent);
-}
-.stat-label {
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--mid);
-  font-weight: 700;
 }
 
 
@@ -1541,6 +1488,19 @@ a.location-link:hover { color: var(--accent); }
 
 /* ================================================================
    14. RESPONSIVE STYLES
+   ────────────────────────────────────────────────────────────────
+   @media (max-width: Xpx) means: "only apply these styles
+   when the screen is X pixels wide or smaller."
+
+   We have two breakpoints:
+   • 1024px = tablets (iPad etc.)
+   • 700px  = mobile phones
+
+   Styles inside these blocks OVERRIDE the desktop styles above.
+   Only the properties listed here change — everything else stays.
+
+   ★ TO CHANGE MOBILE FONT SIZE: edit the values inside @media (max-width: 700px)
+   ★ TO CHANGE WHEN TABLET LAYOUT KICKS IN: change 1024px
 ================================================================ */
 
 /* ── TABLET (max 1024px) ──────────────────────────────────────── */
@@ -1561,9 +1521,7 @@ a.location-link:hover { color: var(--accent); }
   .cat-bg-5       { grid-column: 1; grid-row: 3; }
   .cat-wide-right { grid-column: 2; grid-row: 3; }
 
-  /* Stats: 2 columns instead of 4 */
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-
+  
   /* About: stack image above text, keep the padding/rounded image */
   .about             { grid-template-columns: 1fr; padding: 36px 32px; }
   .about-images      { padding: 0 0 24px 0; }
@@ -1637,11 +1595,6 @@ a.location-link:hover { color: var(--accent); }
     border-radius: 4px;
     overflow: hidden;
   }
-
-  /* STATS: 2 columns */
-  .stats      { padding: 48px 20px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .stat-card  { padding: 28px 16px; }
 
   /* PRODUCT STRIP: mobile fixes */
 

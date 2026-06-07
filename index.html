@@ -1,29 +1,96 @@
 <!DOCTYPE html>
+<!-- ============================================================
+  index.html — Future Green Website
+  ──────────────────────────────────────────────────────────────
+  This is the MAIN FILE of your website. It contains all the
+  content you see on the page: text, sections, buttons, images.
+
+  HOW THE 3 FILES WORK TOGETHER:
+  • index.html  → the skeleton (structure & content)
+  • style.css   → the skin     (colours, fonts, layout)
+  • script.js   → the muscles  (animations, menus, forms)
+
+  HOW TO READ HTML:
+  • Tags come in pairs: <div> ... </div>
+  • class="something"  → connects an element to CSS styling
+  • id="something"     → lets JavaScript find that exact element
+  • href="..."         → where a link goes
+  • src="..."          → where an image/file comes from
+
+  QUICK FIND GUIDE (use Ctrl+F to jump):
+  ★ Change phone number  → search: 9039099107
+  ★ Change email         → search: fgledindia@gmail.com
+  ★ Change address       → search: Badwai
+  ★ Change nav links     → search: nav-links
+  ★ Change hero text     → search: hero-text
+  ★ Change about text    → search: about-body
+  ★ Change stats numbers → search: data-target
+  ★ Change footer links  → search: footer-col
+============================================================ -->
 <html lang="en">
 <head>
+  <!-- ── charset: tells the browser to use modern characters (emoji, Hindi, etc.) -->
   <meta charset="UTF-8" />
+
+  <!-- ── viewport: makes the site look correct on mobile phones, not zoomed out -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- ── TITLE: appears in the browser tab and Google search results
+       ★ TO CHANGE: edit the text between <title> and </title> -->
   <title>Future Green — World Will Glow | LED Lighting India</title>
 
+  <!-- ══════════════════════════════════════════════════════════
+       SEO META TAGS
+       These are invisible to visitors but Google reads them.
+       They control how your site appears in search results.
+  ══════════════════════════════════════════════════════════ -->
+
+  <!-- ── description: the text shown under your link in Google results
+       ★ TO CHANGE: edit the content="..." text below -->
   <meta name="description" content="Future Green builds LED lighting for every corner of a modern home — COB spotlights, panel lights, flood lights, street lights, rope light and more. 2-year warranty. Dealer enquiries welcome." />
+
+  <!-- ── keywords: words Google uses to understand what your page is about -->
   <meta name="keywords" content="LED lights India, COB lights, flood lights, downlights, panel lights, street lights, rope light, LED strip, LED manufacturer Bhopal India, energy efficient lighting" />
+
+  <!-- ── author: your company name -->
   <meta name="author" content="Future Green" />
+
+  <!-- ── canonical: tells Google THIS is the official URL (avoids duplicate content issues) -->
   <link rel="canonical" href="https://futuregreenindia.com/" />
 
+
+  <!-- ══════════════════════════════════════════════════════════
+       OPEN GRAPH (OG) TAGS
+       These control how your site looks when shared on
+       WhatsApp, Facebook, LinkedIn etc. — the little preview
+       card with a title, image and description.
+       ★ TO CHANGE: edit the content="..." on each line
+  ══════════════════════════════════════════════════════════ -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://futuregreenindia.com/" />
   <meta property="og:title"       content="Future Green — World Will Glow | LED Lighting India" />
   <meta property="og:description" content="LED lighting for every corner of a modern home — COB, Flood, Panels, Street Lights and more. Dealer &amp; bulk enquiries welcome." />
-  <meta property="og:image"       content="https://futuregreenindia.com/og-image.png" />
+  <!-- ── og:image: the preview image shown when someone shares your link
+       This points to your logo. Replace with a proper 1200×630px banner
+       image for better looking shares (upload it to resources/) -->
+  <meta property="og:image"       content="https://futuregreenindia.com/resources/logo.png" />
   <meta property="og:locale"      content="en_IN" />
   <meta property="og:site_name"   content="Future Green" />
 
+  <!-- ── Twitter card: same idea but specifically for Twitter/X shares -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Future Green — World Will Glow | LED Lighting India" />
   <meta name="twitter:description" content="LED lighting for every corner of a modern home. COB, Flood, Panels, Street Lights and more." />
-  <meta name="twitter:image"       content="https://futuregreenindia.com/og-image.png" />
+  <meta name="twitter:image"       content="https://futuregreenindia.com/resources/logo.png" />
 
+
+  <!-- ══════════════════════════════════════════════════════════
+       STRUCTURED DATA (JSON-LD)
+       This is like an ID card for your business that Google
+       reads to show your address, phone, hours in search results.
+       ★ TO CHANGE: edit the values inside the quotes below
+       ★ DO NOT change the @context, @type, or key names
+  ══════════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -53,26 +120,73 @@
   }
   </script>
 
-  <!-- Favicon -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       FAVICONS
+       The tiny icon shown in the browser tab.
+       ★ TO CHANGE: replace the files in your resources/ folder
+         with your own icon files (keep the same filenames)
+  ══════════════════════════════════════════════════════════ -->
   <link rel="icon"             href="resources/favicon.ico" />
   <link rel="icon"             href="resources/favicon.svg"  type="image/svg+xml" />
+  <!-- apple-touch-icon: icon shown when someone saves your site to iPhone home screen -->
   <link rel="apple-touch-icon" href="resources/apple-touch-icon.png" />
 
+
+  <!-- ══════════════════════════════════════════════════════════
+       GOOGLE FONTS
+       Loads two fonts from Google's servers:
+       • Libre Baskerville — used for headings (elegant serif)
+       • Lato              — used for body text (clean sans-serif)
+
+       preconnect lines: tell the browser to connect to Google
+       early so fonts load faster. Don't remove these.
+
+       ★ TO CHANGE FONTS: go to fonts.google.com, pick fonts,
+         click "Get embed code" and replace the link below
+  ══════════════════════════════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
 
+  <!-- ── Loads your style.css file which controls all the visual design -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
+  <!-- ══════════════════════════════════════════════════════════
+       SKIP LINK
+       A hidden link that only appears when someone uses the
+       keyboard (Tab key) to navigate. It lets them jump straight
+       to the main content, skipping the nav menu.
+       This is an accessibility requirement — don't remove it.
+  ══════════════════════════════════════════════════════════ -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
+
+  <!-- ══════════════════════════════════════════════════════════
+       NAVIGATION BAR
+       The fixed bar at the top with your logo and page links.
+       It starts transparent over the hero, then turns white
+       when you scroll down (JavaScript handles this in script.js).
+
+       id="mainNav"  → JavaScript uses this to find the nav
+       role/aria-*   → accessibility attributes for screen readers
+  ══════════════════════════════════════════════════════════ -->
   <nav id="mainNav" role="navigation" aria-label="Main navigation">
+
+    <!-- Logo — clicking it goes back to the homepage -->
     <a href="index.html" class="nav-logo-link" aria-label="Future Green — go to homepage">
+      <!-- ★ TO CHANGE LOGO: replace resources/logo.png with your file
+           The height is controlled by .nav-logo-img in style.css -->
       <img src="resources/logo.png" alt="Future Green logo" class="nav-logo-img" />
     </a>
+
+    <!-- Desktop nav links — hidden on mobile, shown via CSS media query
+         ★ TO ADD A LINK: copy one <li>...</li> and change the href and text
+         ★ TO REMOVE A LINK: delete the whole <li>...</li> line
+         The href="#categories" means "scroll to the element with id=categories" -->
     <ul class="nav-links" role="list">
       <li><a href="#categories">Categories</a></li>
       <li><a href="#products">Products</a></li>
@@ -80,6 +194,11 @@
       <li><a href="#contact">Contact</a></li>
       <li><a href="#social">Social</a></li>
     </ul>
+
+    <!-- Hamburger button — the ☰ icon shown only on mobile
+         The three <span> tags are the three lines of the icon.
+         JavaScript animates them into an X when the menu opens.
+         aria-expanded tells screen readers if the menu is open -->
     <button
       id="hamburger"
       class="hamburger"
@@ -88,8 +207,17 @@
       aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
+
   </nav>
 
+
+  <!-- ══════════════════════════════════════════════════════════
+       MOBILE MENU DRAWER
+       The full-screen menu that slides down when hamburger is clicked.
+       Starts hidden (aria-hidden="true"), JavaScript shows it.
+       ★ TO CHANGE LINKS: edit the <a href="..."> tags below
+         (keep them matching the nav-links above)
+  ══════════════════════════════════════════════════════════ -->
   <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
     <ul role="list">
       <li><a href="#categories">Categories</a></li>
@@ -97,7 +225,10 @@
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="#social">Social</a></li>
+      <!-- WhatsApp button — only shown in the mobile menu -->
       <li>
+        <!-- ★ TO CHANGE WHATSAPP NUMBER: replace 919039099107
+             Format: 91 (country code) + your 10-digit number, no spaces -->
         <a href="https://wa.me/919039099107" class="mobile-whatsapp" target="_blank" rel="noopener">
           WhatsApp Us
         </a>
@@ -106,38 +237,74 @@
   </div>
 
 
+  <!-- ══════════════════════════════════════════════════════════
+       MAIN CONTENT
+       Everything the user actually sees on the page goes here.
+       id="main-content" is the target of the skip-link above.
+  ══════════════════════════════════════════════════════════ -->
   <main id="main-content">
 
-    <!-- ═══ HERO ═══ -->
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 1: HERO SLIDESHOW
+         The big full-screen image section at the very top.
+         Contains 3 slides that auto-rotate every 5 seconds.
+
+         HOW SLIDES WORK:
+         • Each .hero-slide is stacked on top of each other
+         • Only the one with class "active" is fully visible
+         • JavaScript switches the "active" class every 5s
+         • The background images are set in style.css
+           (search: slide-bg-1, slide-bg-2, slide-bg-3)
+
+         ★ TO CHANGE SLIDE TEXT: edit the <h1> and <p> below
+         ★ TO CHANGE SLIDE IMAGES: edit .slide-bg-1 etc in style.css
+         ★ TO CHANGE SLIDE SPEED: edit the 5000 in script.js
+    ══════════════════════════════════════════════════════ -->
     <section class="hero" id="hero" aria-label="Hero slideshow">
 
+      <!-- SLIDE 1 -->
       <div class="hero-slide active" role="group" aria-label="Slide 1 of 3">
+        <!-- hero-slide-bg: the background image (set in style.css as .slide-bg-1) -->
         <div class="hero-slide-bg slide-bg-1" aria-hidden="true"></div>
+        <!-- hero-overlay: the dark gradient that makes text readable over the photo -->
         <div class="hero-overlay" aria-hidden="true"></div>
+        <!-- hero-text: the actual text and button shown on this slide
+             ★ TO CHANGE: edit the text inside <h1> and the link text -->
         <div class="hero-text">
           <h1>Light that makes a<br>home glow.</h1>
+          <!-- <br> forces a line break at that point -->
           <a href="#categories" class="hero-link">Explore our range</a>
         </div>
       </div>
 
+      <!-- SLIDE 2 -->
       <div class="hero-slide" role="group" aria-label="Slide 2 of 3">
         <div class="hero-slide-bg slide-bg-2" aria-hidden="true"></div>
         <div class="hero-overlay" aria-hidden="true"></div>
+        <!-- hero-h2: styled like a heading but uses <p> tag (heading is already used above) -->
         <div class="hero-text">
           <p class="hero-h2">Indoor · Outdoor<br>· Decorative</p>
           <a href="#categories" class="hero-link">View all categories</a>
         </div>
       </div>
 
+      <!-- SLIDE 3 -->
       <div class="hero-slide" role="group" aria-label="Slide 3 of 3">
         <div class="hero-slide-bg slide-bg-3" aria-hidden="true"></div>
         <div class="hero-overlay" aria-hidden="true"></div>
         <div class="hero-text">
           <p class="hero-h2">Engineered for<br>the outdoors</p>
+          <!-- &amp; is how you write & in HTML safely -->
           <a href="#categories" class="hero-link">Garden &amp; Street lights</a>
         </div>
       </div>
 
+      <!-- SLIDE DOTS — the small circles at the bottom right
+           onclick="goSlide(0)" means "when clicked, call the goSlide
+           function in script.js with slide number 0 (first slide)"
+           ★ TO ADD A SLIDE: add a new hero-slide above AND a new
+             button here, updating the aria-labels accordingly -->
       <div class="hero-dots" role="tablist" aria-label="Slideshow controls">
         <button class="hero-dot active" onclick="goSlide(0)" role="tab" aria-selected="true"  aria-label="Go to slide 1"></button>
         <button class="hero-dot"        onclick="goSlide(1)" role="tab" aria-selected="false" aria-label="Go to slide 2"></button>
@@ -147,97 +314,123 @@
     </section>
 
 
-    <!-- ═══ CATEGORIES ═══ -->
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 2: PRODUCT CATEGORIES
+         The mosaic grid of 6 category cards (COB, Flood, etc.)
+         Each card is a clickable link to the #products section.
+
+         Background images are set in style.css (search: cat-bg-1)
+         Layout (which card is tall/wide) is also in style.css.
+
+         ★ TO CHANGE CATEGORY NAME: edit the <span class="cat-label"> text
+         ★ TO CHANGE SUBTITLE: edit the <span class="cat-sub"> text
+         ★ TO CHANGE WHERE IT LINKS: change href="#products" to any URL
+         ★ TO CHANGE BACKGROUND IMAGE: edit .cat-bg-1 etc in style.css
+    ══════════════════════════════════════════════════════ -->
     <section class="categories" id="categories" aria-labelledby="categories-heading">
+      <!-- sr-only: this heading is invisible on screen but read by Google and screen readers -->
       <h2 id="categories-heading" class="sr-only">Product Categories</h2>
+
       <div class="cat-grid">
+
+        <!-- Each cat-cell is one category card.
+             cat-tall-left / cat-bg-2 etc = size and image classes (defined in style.css) -->
+
+        <!-- Category 1: COB Lights -->
         <a href="#products" class="cat-cell cat-tall-left cat-bg-1" aria-label="COB Lights — Chip on Board">
           <div class="cat-img-inner" aria-hidden="true"></div>
-          <div class="cat-label-wrap"><span class="cat-label">COB</span><span class="cat-sub">Chip on Board</span></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">COB</span>           <!-- main category name -->
+            <span class="cat-sub">Chip on Board</span>   <!-- subtitle below the name -->
+          </div>
         </a>
+
+        <!-- Category 2: Flood Lights -->
         <a href="#products" class="cat-cell cat-bg-2" aria-label="Flood Lights — High-output beam">
           <div class="cat-img-inner" aria-hidden="true"></div>
-          <div class="cat-label-wrap"><span class="cat-label">Flood Lights</span><span class="cat-sub">High-output beam</span></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Flood Lights</span>
+            <span class="cat-sub">High-output beam</span>
+          </div>
         </a>
+
+        <!-- Category 3: Downlights -->
         <a href="#products" class="cat-cell cat-bg-3" aria-label="Downlights — Recessed precision">
           <div class="cat-img-inner" aria-hidden="true"></div>
-          <div class="cat-label-wrap"><span class="cat-label">Downlights</span><span class="cat-sub">Recessed precision</span></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Downlights</span>
+            <span class="cat-sub">Recessed precision</span>
+          </div>
         </a>
+
+        <!-- Category 4: Panel Lights (tall card in center) -->
         <a href="#products" class="cat-cell cat-tall-center cat-bg-4" aria-label="Panel Lights — Even surface glow">
           <div class="cat-img-inner" aria-hidden="true"></div>
-          <div class="cat-label-wrap"><span class="cat-label">Panel Lights</span><span class="cat-sub">Even surface glow</span></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Panel Lights</span>
+            <span class="cat-sub">Even surface glow</span>
+          </div>
         </a>
+
+        <!-- Category 5: Garden Lights -->
         <a href="#products" class="cat-cell cat-bg-5" aria-label="Garden Lights — Outdoor ambiance">
           <div class="cat-img-inner" aria-hidden="true"></div>
-          <div class="cat-label-wrap"><span class="cat-label">Garden Lights</span><span class="cat-sub">Outdoor ambiance</span></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Garden Lights</span>
+            <span class="cat-sub">Outdoor ambiance</span>
+          </div>
         </a>
+
+        <!-- Category 6: Street Lights (wide card on right) -->
         <a href="#products" class="cat-cell cat-wide-right cat-bg-6" aria-label="Street Lights — Urban infrastructure">
           <div class="cat-img-inner" aria-hidden="true"></div>
-          <div class="cat-label-wrap"><span class="cat-label">Street Lights</span><span class="cat-sub">Urban infrastructure</span></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Street Lights</span>
+            <span class="cat-sub">Urban infrastructure</span>
+          </div>
         </a>
+
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 4: PRODUCT STRIP (scrolling carousel)
+         An infinite auto-scrolling row of product cards.
+         JavaScript builds the cards from the STRIP_PRODUCTS
+         array in script.js and fills the #stripTrack div.
 
-    <!-- ═══ STATS ═══ -->
-    <section class="stats" id="stats" aria-labelledby="stats-heading">
-      <h2 id="stats-heading" class="sr-only">Company Statistics</h2>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number">
-            <span class="stat-count" data-target="15">0</span>
-            <span class="stat-suffix" aria-hidden="true">+</span>
-          </div>
-          <p class="stat-label">Years Experience</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">
-            <span class="stat-count" data-target="200">0</span>
-            <span class="stat-suffix" aria-hidden="true">+</span>
-          </div>
-          <p class="stat-label">Product Variants</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">
-            <span class="stat-count" data-target="500">0</span>
-            <span class="stat-suffix" aria-hidden="true">+</span>
-          </div>
-          <p class="stat-label">Dealer Partners</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">
-            <span class="stat-count" data-target="30">0</span>
-            <span class="stat-suffix" aria-hidden="true">+</span>
-          </div>
-          <p class="stat-label">States Covered</p>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ═══ PRODUCT STRIP ═══ -->
+         ★ TO ADD / REMOVE PRODUCTS: edit STRIP_PRODUCTS in script.js
+         ★ TO CHANGE SCROLL SPEED: edit `speed` in script.js
+         The ‹ › buttons let users scroll manually.
+    ══════════════════════════════════════════════════════ -->
     <section class="strip-section" id="products" aria-labelledby="products-heading">
 
+      <!-- Section heading and subtitle
+           class="reveal" means it fades in when scrolled into view -->
       <div class="strip-heading reveal">
-        <p class="strip-eyebrow">Our Range</p>
+        <p class="strip-eyebrow">Our Range</p>   <!-- small label above heading -->
         <h2 id="products-heading">Featured Products</h2>
         <p class="strip-hint">Hover any card to explore · Use arrows to browse</p>
       </div>
 
-      <!-- strip-outer: positions the edge nav buttons -->
+      <!-- strip-outer: wrapper that positions the left/right arrow buttons -->
       <div class="strip-outer">
 
+        <!-- Left arrow button (previous) -->
         <button class="strip-nav strip-nav-prev" id="stripPrev" aria-label="Previous products">
+          <!-- SVG icon = scalable vector graphic = an icon drawn with code, not an image file -->
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
         </button>
 
+        <!-- The scrolling track — JavaScript fills this with product cards -->
         <div class="strip-wrapper" aria-label="Scrolling product showcase" role="region">
-          <!-- JS populates this with 22 products × 2 sets -->
+          <!-- This div starts empty. script.js injects all product cards here. -->
           <div class="strip-track" id="stripTrack" aria-hidden="true"></div>
         </div>
 
+        <!-- Right arrow button (next) -->
         <button class="strip-nav strip-nav-next" id="stripNext" aria-label="Next products">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="9 18 15 12 9 6"/>
@@ -249,37 +442,81 @@
     </section>
 
 
-    <!-- ═══ ABOUT ═══ -->
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 5: ABOUT US
+         Two-column layout: photo on left, text on right.
+         class="reveal" → fades in when scrolled into view.
+         The photo is a CSS background image (set in style.css,
+         search: about-img-1).
+
+         ★ TO CHANGE HEADING: edit the <h2> text
+         ★ TO CHANGE PARAGRAPH: edit the <p class="about-body"> text
+         ★ TO CHANGE BUTTON TEXT: edit "Become a dealer"
+         ★ TO CHANGE PHOTO: edit .about-img-1 in style.css
+    ══════════════════════════════════════════════════════ -->
     <section class="about reveal" id="about" aria-labelledby="about-heading">
+
+      <!-- Left side: the photo -->
       <div class="about-images">
+        <!-- This div shows a background image defined in style.css (.about-img-1)
+             role="img" + aria-label makes it accessible to screen readers -->
         <div class="about-img about-img-1" role="img" aria-label="Future Green manufacturing facility"></div>
       </div>
+
+      <!-- Right side: the text content -->
       <div class="about-text">
-        <p class="about-eyebrow">About Us</p>
+        <p class="about-eyebrow">About Us</p>  <!-- small uppercase label -->
         <h2 id="about-heading">India's trusted<br>lighting partner.</h2>
+
+        <!-- ★ Main about paragraph — change this text to describe your company -->
         <p class="about-body">
           Future Green builds LED lighting for every corner of a modern home and the spaces around it — from wafer-thin ceiling panels and adjustable COB spots to outdoor floods, street lights and decorative rope. Whatever the room, the promise is the same: high lumen efficiency, up to 80% energy saving, and a 2-year warranty on every fixture.
         </p>
+
+        <!-- CTA button that scrolls to the contact form -->
         <a href="#contact" class="btn-about">Become a dealer</a>
       </div>
+
     </section>
 
 
-    <!-- ═══ CONTACT ═══ -->
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 6: CONTACT
+         Has two parts:
+         A) The contact form (powered by Formspree)
+         B) The location card + Google Maps embed below it
+
+         FORMSPREE: a free service that receives your form
+         submissions and emails them to you. The action URL
+         is your unique Formspree endpoint.
+         ★ IMPORTANT: Go to formspree.io → your form settings
+           → Allowed Domains → add futuregreenindia.com
+           (prevents spam from other websites)
+
+         ★ TO CHANGE PHONE/EMAIL: search 9039099107 / fgledindia@gmail.com
+         ★ TO CHANGE FORM FIELDS: add/remove <div class="form-group"> blocks
+         ★ TO CHANGE SUCCESS MESSAGE: edit the <p class="form-success"> text
+    ══════════════════════════════════════════════════════ -->
     <section class="contact reveal" id="contact" aria-labelledby="contact-heading">
       <div class="contact-wrapper">
         <div class="contact-inner">
+
           <p class="contact-eyebrow">Let's talk</p>
           <h2 id="contact-heading">Contact us</h2>
           <p class="contact-sub">Have a project in mind or want to become a dealer? We'd love to hear from you.</p>
 
+          <!-- Quick contact buttons (phone / WhatsApp / email) shown above the form -->
           <div class="contact-quick">
+
+            <!-- Phone call link — tel: opens the phone dialler on mobile -->
             <a href="tel:+919039099107" class="contact-quick-item" aria-label="Call us">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
               </svg>
               +91 9039099107
             </a>
+
+            <!-- WhatsApp link — wa.me/ is WhatsApp's official link format -->
             <a href="https://wa.me/919039099107" class="contact-quick-item contact-quick-wa" target="_blank" rel="noopener" aria-label="WhatsApp us">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
@@ -287,60 +524,93 @@
               </svg>
               WhatsApp
             </a>
+
+            <!-- Email link — mailto: opens the email app -->
             <a href="mailto:fgledindia@gmail.com" class="contact-quick-item" aria-label="Email us">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
               </svg>
               fgledindia@gmail.com
             </a>
+
           </div>
 
+          <!-- CONTACT FORM
+               action="..." → the Formspree URL that receives your submissions
+               method="POST" → how the data is sent (standard for forms)
+               novalidate → we do our own validation in script.js -->
           <form id="contactForm" action="https://formspree.io/f/mgobvgdd" method="POST" novalidate>
+
+            <!-- Two fields side by side: Name and Email -->
             <div class="form-row">
+              <!-- Name field -->
               <div class="form-group">
+                <!-- label for="name" links this label to the input id="name" below -->
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" />
+                <!-- required → browser won't submit if this is empty
+                     autocomplete → browser suggests saved values -->
               </div>
+              <!-- Email field -->
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email" />
               </div>
             </div>
+
+            <!-- Phone field (optional) -->
             <div class="form-group">
               <label for="phone">Phone <span class="optional">(optional)</span></label>
               <input type="tel" id="phone" name="phone" placeholder="+91 00000 00000" autocomplete="tel" />
             </div>
+
+            <!-- Message textarea — rows="5" sets the height -->
             <div class="form-group">
               <label for="message">Message</label>
               <textarea id="message" name="message" rows="5" placeholder="Tell us about your project or enquiry..." required></textarea>
             </div>
+
+            <!-- Submit button — JavaScript handles the click, shows loading state -->
             <button type="submit" class="btn-submit">Send message</button>
+
           </form>
 
+          <!-- Success message shown after form is submitted successfully.
+               Hidden by default (display:none in CSS), JavaScript shows it.
+               ★ TO CHANGE: edit the text below -->
           <p class="form-success" id="formSuccess" role="alert" aria-live="polite">
             Thank you! We'll be in touch soon.
           </p>
+
         </div>
       </div>
 
-      <!-- Location map -->
+      <!-- ── LOCATION CARD + MAP (below the form) ── -->
       <div class="contact-location">
         <div class="contact-location-wrapper">
+
+          <!-- Left: address, phone, hours, directions button -->
           <div class="location-info-card">
             <p class="about-eyebrow">Find Us</p>
             <h3 class="location-card-heading">Visit our facility</h3>
             <p class="location-body">Open for dealer visits and product inspections. Call ahead so we can arrange a tour.</p>
 
+            <!-- Three detail rows: address, phone, hours -->
             <div class="location-details">
+
+              <!-- Address row -->
               <div class="location-detail-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                   <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
                 </svg>
                 <div>
                   <p class="location-detail-label">Address</p>
+                  <!-- ★ TO CHANGE ADDRESS: edit the text below -->
                   <p class="location-detail-value">A-09, IT Park, Badwai<br>Bhopal, Madhya Pradesh<br>India</p>
                 </div>
               </div>
+
+              <!-- Phone row -->
               <div class="location-detail-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
@@ -350,18 +620,23 @@
                   <a href="tel:+919039099107" class="location-detail-value location-link">+91 9039099107</a>
                 </div>
               </div>
+
+              <!-- Hours row -->
               <div class="location-detail-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
                 </svg>
                 <div>
                   <p class="location-detail-label">Working Hours</p>
+                  <!-- &nbsp; = non-breaking space (adds a gap) -->
                   <p class="location-detail-value">Mon – Sat &nbsp; 9:00 AM – 6:00 PM</p>
                 </div>
               </div>
+
             </div>
 
-            <a href="https://maps.app.goo.gl/3XTUsHuFHyRW45Lh7?g_st=ac" target="_blank" rel="noopener" class="btn-directions">
+            <!-- Get Directions button — opens Google Maps navigation -->
+            <a href="https://www.google.com/maps/dir/?api=1&destination=FUTURE+GREEN+INDIA+IT+Park+Badwai+Bhopal" target="_blank" rel="noopener" class="btn-directions">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <polygon points="3 11 22 2 13 21 11 13 3 11"/>
               </svg>
@@ -369,13 +644,13 @@
             </a>
           </div>
 
+          <!-- Right: embedded Google Map
+               ★ TO UPDATE THE MAP: go to maps.google.com → find your location
+                 → Share → Embed a map → copy the full src URL and replace below -->
           <div class="location-map">
-            <!-- Replace src with your own Google Maps embed URL from maps.google.com > Share > Embed a map -->
-            <!-- ⚠️  ACTION REQUIRED: Go to maps.google.com, search "A-09 IT Park Badwai Bhopal",
-                 click Share → Embed a map → copy the full iframe src and replace the one below. -->
             <iframe
               class="location-map-iframe"
-              src="https://maps.app.goo.gl/3XTUsHuFHyRW45Lh7?g_st=ac"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1544.4843896873485!2d77.36829817455188!3d23.312038641516217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c69f2a77469d3%3A0xb3e2db253bf31f36!2sFUTURE%20GREEN%20INDIA!5e0!3m2!1sen!2sin!4v1780839756616!5m2!1sen!2sin"
               width="100%" height="100%" style="border:0;"
               allowfullscreen="" loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
@@ -383,16 +658,29 @@
               aria-label="Map showing Future Green facility in Badwai, Bhopal">
             </iframe>
           </div>
+
         </div>
       </div>
 
     </section>
 
 
-    <!-- ═══ SOCIAL ═══ -->
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 7: SOCIAL / INSTAGRAM
+         Left side: handle + follow link
+         Right side: 5 placeholder boxes for Instagram photos
+         (the placeholder colours are set in style.css)
+
+         ★ TO CHANGE INSTAGRAM HANDLE: edit @fgledindia and the href URLs
+         ★ TO ADD REAL PHOTOS: replace .social-ph-1 etc background
+           images in style.css with your actual photo URLs
+    ══════════════════════════════════════════════════════ -->
     <section class="social-section reveal" id="social" aria-labelledby="social-heading">
+
+      <!-- Left panel -->
       <div class="social-left">
         <h2 id="social-heading">Get social</h2>
+        <!-- Instagram handle link -->
         <a href="https://instagram.com/fgledindia" class="social-handle" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
@@ -401,6 +689,11 @@
         </a>
         <a href="https://instagram.com/fgledindia" class="link-arrow" target="_blank" rel="noopener">Follow us on social</a>
       </div>
+
+      <!-- Right panel: 5 Instagram photo placeholders
+           social-img-tall = first photo is taller (spans 2 rows)
+           ★ TO ADD REAL PHOTOS: set background-image in style.css
+             on .social-ph-1 through .social-ph-5 -->
       <div class="social-grid" aria-label="Instagram feed preview">
         <div class="social-img social-img-tall"><div class="social-img-inner social-ph-1" aria-label="Instagram photo 1"></div></div>
         <div class="social-img"><div class="social-img-inner social-ph-2" aria-label="Instagram photo 2"></div></div>
@@ -408,47 +701,73 @@
         <div class="social-img"><div class="social-img-inner social-ph-4" aria-label="Instagram photo 4"></div></div>
         <div class="social-img"><div class="social-img-inner social-ph-5" aria-label="Instagram photo 5"></div></div>
       </div>
+
     </section>
 
 
-  </main>
+  </main><!-- end of main content -->
 
 
-  <!-- ═══ FOOTER ═══ -->
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER
+       The dark section at the very bottom.
+       Contains: logo, tagline, contact info strip, link columns,
+       social icons, copyright, developer credit.
+
+       ★ TO CHANGE FOOTER LINKS: edit the <a href="..."> inside .footer-col
+       ★ TO CHANGE SOCIAL LINKS: edit the href on each .footer-social-link
+       ★ TO CHANGE COPYRIGHT NAME: edit "Future Green" in .footer-bottom
+       ★ TO REMOVE DEVELOPER CREDIT: delete the <p class="footer-dev"> line
+  ══════════════════════════════════════════════════════════ -->
   <footer role="contentinfo">
 
+    <!-- Logo + tagline at top of footer -->
     <div class="footer-top">
       <img src="resources/logo.png" alt="Future Green" class="footer-logo" />
       <p class="footer-tagline">World Will Glow</p>
     </div>
 
-    <!-- Compact location row -->
+    <!-- Compact one-line contact info strip -->
     <div class="footer-location-row">
+
+      <!-- Address item -->
       <div class="footer-loc-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
         </svg>
         <span>A-09, IT Park, Badwai, Bhopal — Madhya Pradesh, India</span>
       </div>
+
+      <!-- Email item -->
       <div class="footer-loc-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
         </svg>
         <a href="mailto:fgledindia@gmail.com">fgledindia@gmail.com</a>
       </div>
+
+      <!-- Phone item -->
       <div class="footer-loc-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
         </svg>
         <a href="tel:+919039099107">+91 9039099107</a>
       </div>
+
+      <!-- Directions link -->
       <a href="https://maps.google.com/?q=IT+Park+Badwai+Bhopal+Madhya+Pradesh+India" target="_blank" rel="noopener" class="footer-loc-map">
         Get Directions
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
       </a>
+
     </div>
 
+    <!-- Four link columns: Company / Products / Support / Follow Us
+         ★ TO ADD A LINK: copy a <li><a href="...">Text</a></li> inside any column
+         ★ TO REMOVE A LINK: delete the whole <li>...</li> line -->
     <div class="footer-cols">
+
+      <!-- Column 1: Company links -->
       <div class="footer-col">
         <h3>Company</h3>
         <ul role="list">
@@ -457,6 +776,8 @@
           <li><a href="#contact">Get in Touch</a></li>
         </ul>
       </div>
+
+      <!-- Column 2: Product category links -->
       <div class="footer-col">
         <h3>Products</h3>
         <ul role="list">
@@ -465,9 +786,12 @@
           <li><a href="#categories">Flood Lights</a></li>
           <li><a href="#categories">Downlights</a></li>
           <li><a href="#categories">Street Lights</a></li>
+          <!-- &amp; = the & symbol written safely in HTML -->
           <li><a href="#categories">Rope &amp; Strip</a></li>
         </ul>
       </div>
+
+      <!-- Column 3: Support links -->
       <div class="footer-col">
         <h3>Support</h3>
         <ul role="list">
@@ -477,37 +801,62 @@
           <li><a href="mailto:fgledindia@gmail.com">fgledindia@gmail.com</a></li>
         </ul>
       </div>
+
+      <!-- Column 4: Social media icon links -->
       <div class="footer-col">
         <h3>Follow Us</h3>
         <div class="footer-socials">
+
+          <!-- Each link has an SVG icon + text label
+               ★ TO CHANGE A SOCIAL LINK: edit the href="https://instagram.com/..." -->
+
+          <!-- Instagram -->
           <a href="https://instagram.com/fgledindia" aria-label="Instagram" class="footer-social-link" target="_blank" rel="noopener">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
             <span>Instagram</span>
           </a>
+
+          <!-- Facebook -->
           <a href="https://facebook.com/fgledindia" aria-label="Facebook" class="footer-social-link" target="_blank" rel="noopener">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             <span>Facebook</span>
           </a>
+
+          <!-- LinkedIn -->
           <a href="https://linkedin.com/company/fgledindia" aria-label="LinkedIn" class="footer-social-link" target="_blank" rel="noopener">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             <span>LinkedIn</span>
           </a>
+
+          <!-- YouTube -->
           <a href="https://youtube.com/@fgledindia" aria-label="YouTube" class="footer-social-link" target="_blank" rel="noopener">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             <span>YouTube</span>
           </a>
+
         </div>
       </div>
+
     </div>
 
+    <!-- Bottom bar: copyright + developer credit -->
     <div class="footer-bottom">
+      <!-- id="copyrightYear" → JavaScript automatically fills in the current year -->
       <p>© <span id="copyrightYear"></span> Future Green. All rights reserved.</p>
+      <!-- id="devCredit" → clicking this secretly toggles dark mode (easter egg) -->
       <p class="footer-dev">Developed by <span id="devCredit">Harshul Adwani</span> &nbsp;·&nbsp; <a href="mailto:harshuladwani@gmail.com" class="footer-dev-email">harshuladwani@gmail.com</a></p>
     </div>
 
   </footer>
 
 
+  <!-- ══════════════════════════════════════════════════════════
+       WHATSAPP FLOATING BUTTON
+       The green circle fixed at the bottom-right corner.
+       Visible on all screens at all times.
+       ★ TO CHANGE NUMBER: replace 919039099107
+         Format: 91 (India code) + 10-digit number, no spaces
+  ══════════════════════════════════════════════════════════ -->
   <a href="https://wa.me/919039099107"
      class="whatsapp-float"
      target="_blank"
@@ -519,6 +868,9 @@
     </svg>
   </a>
 
+  <!-- Load script.js at the END of the body (not in <head>).
+       This is important — it runs AFTER all the HTML elements
+       exist on the page, so JavaScript can find them. -->
   <script src="script.js"></script>
 
 </body>
