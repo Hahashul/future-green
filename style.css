@@ -327,7 +327,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
 /* ── SLIDE BACKGROUNDS ──
    Replace each gradient with: background-image: url('hero1.jpg');
 */
-.slide-bg-1 { background-image: url('resources/hero1.png');}
+.slide-bg-1 { background-image: url('resources/hero1.jpg');}
 .slide-bg-2 { background-image: url('resources/hero2.png'); }
 .slide-bg-3 { background-image: url('resources/hero3.png'); background-position: right center; }
 
@@ -548,11 +548,10 @@ nav.nav-solid .hamburger span { background: var(--text); }
 
 
 /* ================================================================
-   8. SCROLLING PRODUCT STRIP
-   Pure CSS infinite scroll — no JS needed.
-   The strip-track contains 2 identical sets of cards.
-   Animation moves it left by 50% (= 1 set width), then
-   instantly resets to 0 — creating a seamless loop.
+   8. PRODUCT STRIP
+   JS-driven infinite scroll. Cards have a dark bg for transparent
+   product PNGs. Hover expands the card to reveal the info panel.
+   Edge nav buttons appear when the strip section is hovered.
 ================================================================ */
 .strip-section {
   background: var(--white);
@@ -562,76 +561,241 @@ nav.nav-solid .hamburger span { background: var(--text); }
 
 .strip-heading {
   text-align: center;
-  padding: 0 48px 48px;
+  padding: 0 48px 40px;
 }
 .strip-heading h2 {
   font-size: clamp(28px, 3vw, 40px);
   font-weight: 700;
   margin-top: 8px;
+  margin-bottom: 0;
+}
+.strip-hint {
+  font-size: 12px;
+  color: var(--mid);
+  letter-spacing: 0.05em;
+  margin-top: 10px;
+  opacity: 0.7;
 }
 
-/* Clips the scrolling track so cards don't overflow */
-.strip-wrapper { overflow: hidden; width: 100%; }
+/* Outer: positions the edge nav buttons */
+.strip-outer {
+  position: relative;
+}
+
+/* Clips the scrolling track */
+.strip-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
 
 .strip-track {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   width: max-content;
-  animation: scrollStrip 30s linear infinite;
-  padding: 0 10px 48px;
-}
-/* Pause when user hovers — lets them read a product */
-.strip-wrapper:hover .strip-track { animation-play-state: paused; }
-
-@keyframes scrollStrip {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); } /* moves by 1 full set width */
+  padding: 8px 10px 48px;
+  /* No CSS animation — JS drives this */
 }
 
+
+/* Edge nav buttons hidden — user scrolls naturally */
+.strip-nav {
+  display: none;
+}
+
+
+/* ── PRODUCT CARD ──
+   Dark bg on hover so transparent product PNGs and white text read cleanly.
+   Flex column: image+info row on top, label bar at bottom full width.
+   Info panel slides in from right on hover. */
 .strip-card {
+  position: relative;
   flex-shrink: 0;
   width: 220px;
-  background: var(--white);
-  border: 1px solid var(--border);
+  height: 290px;
+  background: var(--off-white);
+  border-radius: 8px;
+  overflow: hidden;
   cursor: pointer;
-  transition: box-shadow 0.3s, transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              background 0.3s ease;
+  z-index: 1;
 }
 .strip-card:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-  transform: translateY(-4px);
+  width: 460px;
+  border-color: rgba(120, 183, 40, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0,0,0,0.1);
+  background: var(--off-white);
+  z-index: 10;
 }
 
-.strip-img {
-  width: 100%;
-  height: 220px;
+/* Left column: row container for image + info panel, fills above the label */
+.strip-card-left {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+/* Image area: fixed 220px wide */
+.strip-card-img {
+  flex: 0 0 220px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 18px 16px 12px;
+}
+.strip-card-img img {
+  max-width: 190px;
+  max-height: 210px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.55));
+  transition: transform 0.4s ease;
+  display: block;
+}
+.strip-card:hover .strip-card-img img {
+  transform: scale(1.08) translateY(-4px);
 }
 
-/* Card image backgrounds — replace with product photos */
-.strip-c1 { background: linear-gradient(145deg, #e8e2d8, #d0c8ba); }
-.strip-c2 { background: linear-gradient(145deg, #d8dce0, #c0c8d0); }
-.strip-c3 { background: linear-gradient(145deg, #e4dfd6, #ccc4b8); }
-.strip-c4 { background: linear-gradient(145deg, #dde0d8, #c8ccc0); }
-.strip-c5 { background: linear-gradient(145deg, #d8e0d4, #bccab8); }
-.strip-c6 { background: linear-gradient(145deg, #d4d8de, #bcc0c8); }
-
-/* Emoji placeholder icon — delete when you add real photos */
-.strip-ph { font-size: 40px; opacity: 0.3; }
-
+/* Name + category at card bottom */
+.strip-card-label {
+  flex-shrink: 0;
+  padding: 10px 14px 13px;
+  background: rgba(0, 0, 0, 0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
 .strip-name {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--text);
-  padding: 16px 16px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+  letter-spacing: 0.01em;
 }
 .strip-sub {
-  font-size: 12px;
+  font-size: 10px;
+  font-weight: 400;
   color: var(--mid);
-  padding: 0 16px 16px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* Info panel: slides in from right on hover */
+.strip-card-info {
+  flex-shrink: 0;
+  width: 260px;
+  height: 100%;
+  padding: 22px 22px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateX(14px);
+  transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
+}
+.strip-card:hover .strip-card-info {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.3s ease 0.18s, transform 0.3s ease 0.18s;
+}
+
+.strip-info-cat {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+.strip-info-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.strip-info-desc {
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.65;
+  margin: 0;
+}
+.strip-info-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 2px;
+}
+.strip-info-tags span {
+  font-size: 11px;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  padding: 4px 10px;
+  display: inline-block;
+  width: fit-content;
+  letter-spacing: 0.02em;
+}
+
+
+/* ── FOOTER LOCATION ROW ── */
+.footer-location-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px 36px;
+  padding: 0 0 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 40px;
+}
+.footer-loc-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+}
+.footer-loc-item svg {
+  flex-shrink: 0;
+  stroke: var(--accent);
+  opacity: 0.75;
+}
+.footer-loc-item a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-loc-item a:hover { color: #fff; }
+.footer-loc-map {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.footer-loc-map:hover { opacity: 0.65; }
 
 /* ================================================================
    9. ABOUT US
@@ -668,7 +832,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
 }
 
 /* Placeholder gradient — replace with real photo */
-.about-img-1 { background: linear-gradient(160deg, #2a2620 0%, #4a3e2e 100%); }
+.about-img-1 { background-image: url('resources/factory.png'); }
 
 /* Text side */
 .about-text {
@@ -1447,9 +1611,22 @@ a.location-link:hover { color: var(--accent); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .stat-card  { padding: 28px 16px; }
 
-  /* PRODUCT STRIP: smaller cards */
-  .strip-card { width: 170px; }
-  .strip-img  { height: 170px; }
+  /* PRODUCT STRIP: mobile fixes */
+  .strip-nav        { display: none; }           /* remove prev/next arrows */
+  .strip-wrapper    { overflow: hidden; cursor: default; }
+  .strip-card       { width: 180px; height: 260px; }
+  .strip-card:hover, .strip-card:active { width: 180px; }  /* no expand on mobile */
+  .strip-card-left  { flex-direction: column; }
+  .strip-card-img   {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .strip-card-img img { max-width: 140px; max-height: 150px; width: 100%; margin: 0 auto; }
+  .strip-card-info  { display: none; }           /* hide info panel on mobile */
 
   /* ABOUT: hide image on mobile, full-width text */
   .about-images { display: none; }
@@ -1489,4 +1666,21 @@ a.location-link:hover { color: var(--accent); }
 
   /* WHATSAPP FLOAT: slightly smaller on mobile */
   .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+}
+/* ── STRIP CARD LAYOUT FIXES ──
+   Label bar now lives outside .strip-card-left so it spans full card width.
+   .strip-card-left is a flex row: image (200px) + info panel.
+   This ensures the grey bar always stretches edge-to-edge. */
+
+/* Override label to be a proper bottom bar */
+.strip-card-label {
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  background: rgba(0, 0, 0, 0.08) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* On hover, keep same subtle label */
+.strip-card:hover .strip-card-label {
+  background: rgba(0, 0, 0, 0.1) !important;
 }
