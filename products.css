@@ -19,10 +19,22 @@
    11. Responsive         — tablet + mobile breakpoints
 ================================================================ */
 
-
 /* ================================================================
-   1. PAGE HEADER
+   products.css — Future Green Product Catalogue Styles
+   ─────────────────────────────────────────────────────────────
+   This file contains ONLY catalogue-specific styles.
+   All base variables, nav, footer, and WhatsApp button styles
+   are inherited from style.css exactly as on index.html.
+
+   HOW THE FILES WORK:
+   • style.css      → shared styles (nav, footer, fonts, colours)
+   • products.css   → catalogue page styles (this file)
+   • products-data.js → all product data (edit this to add products)
+   • products.js    → all catalogue logic (rendering, filtering, etc.)
 ================================================================ */
+
+
+/* ── PAGE HEADER ──────────────────────────────────────────────── */
 .prod-header {
   padding-top: var(--nav-height);
   background: var(--off-white);
@@ -65,6 +77,8 @@
   flex-shrink: 0;
   align-items: center;
 }
+
+/* Download Catalogue button */
 .btn-pdf {
   display: inline-flex;
   align-items: center;
@@ -84,19 +98,7 @@
 }
 .btn-pdf:hover { background: #333; transform: translateY(-2px); }
 
-
-/* ================================================================
-   2. MOBILE FILTER
-================================================================ */
-/* Row that holds the filter button — hidden on desktop */
-.mobile-filter-row {
-  display: none;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border);
-  background: var(--off-white);
-}
-
-/* The filter button itself */
+/* Mobile filter button — shown only on small screens */
 .btn-mobile-filter {
   display: none;
   align-items: center;
@@ -117,20 +119,8 @@
 .btn-mobile-filter:hover { border-color: var(--text); background: var(--off-white); }
 .btn-mobile-filter svg { color: var(--text); }
 
-/* Backdrop overlay when sidebar drawer is open */
-.sidebar-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 399;
-}
-.sidebar-backdrop.open { display: block; }
 
-
-/* ================================================================
-   3. LAYOUT & SIDEBAR
-================================================================ */
+/* ── MAIN LAYOUT ──────────────────────────────────────────────── */
 .prod-layout {
   display: grid;
   grid-template-columns: 232px 1fr;
@@ -138,6 +128,8 @@
   min-height: 60vh;
 }
 
+
+/* ── SIDEBAR ──────────────────────────────────────────────────── */
 .prod-sidebar {
   position: sticky;
   top: var(--nav-height);
@@ -149,8 +141,16 @@
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
 }
-
-/* Sidebar header row (CATEGORIES label + close X on mobile) */
+.sidebar-heading {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 16px;
+  display: block;
+  padding: 0 8px;
+}
 .sidebar-mobile-header {
   display: flex;
   align-items: center;
@@ -158,15 +158,6 @@
   margin-bottom: 16px;
   padding: 0 8px;
 }
-.sidebar-heading {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--mid);
-  display: block;
-}
-/* Close X — only visible inside mobile drawer */
 .sidebar-close-x {
   display: none;
   background: none;
@@ -181,10 +172,7 @@
 }
 .sidebar-close-x:hover { border-color: var(--text); color: var(--text); }
 
-
-/* ================================================================
-   4. CATEGORY FILTER BUTTONS
-================================================================ */
+/* Category filter buttons */
 .cat-filter-list { list-style: none; }
 .cat-filter-btn {
   display: flex;
@@ -217,9 +205,7 @@
 .cat-filter-btn.active .cat-count { opacity: 0.55; }
 
 
-/* ================================================================
-   5. PRODUCT GRID & CARDS
-================================================================ */
+/* ── PRODUCTS MAIN AREA ───────────────────────────────────────── */
 .prod-main {
   padding: 28px 40px 60px;
   background: var(--white);
@@ -238,13 +224,16 @@
 }
 .prod-count strong { color: var(--text); }
 
+
+/* ── PRODUCT GRID ─────────────────────────────────────────────── */
 .prod-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-/* Card */
+
+/* ── PRODUCT CARD ─────────────────────────────────────────────── */
 .prod-card {
   background: var(--off-white);
   border-radius: 10px;
@@ -258,12 +247,12 @@
   cursor: pointer;
 }
 .prod-card:hover {
-  border-color: var(--accent);
+  border-color: var(--border);
   transform: translateY(-5px);
-  box-shadow: 0 0 0 1px var(--accent), 0 16px 48px rgba(120,183,40,0.15);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.1);
 }
 
-/* Card image area — shows placeholder SVG when image missing */
+/* Placeholder shown when product image is missing */
 .prod-card-img {
   aspect-ratio: 1;
   min-height: 120px;
@@ -287,8 +276,6 @@
 .prod-card:hover .prod-card-img img {
   transform: scale(1.07) translateY(-4px);
 }
-
-/* Card text body */
 .prod-card-body {
   padding: 14px 16px 16px;
   display: flex;
@@ -332,7 +319,7 @@
   color: var(--mid);
 }
 
-/* Finish dots (small, on card) */
+/* Finish dots — small circles on card */
 .finish-dots {
   display: flex;
   gap: 4px;
@@ -348,7 +335,7 @@
   flex-shrink: 0;
 }
 
-/* Empty state when no products match */
+/* Empty state when no products match filter */
 .prod-empty {
   grid-column: 1 / -1;
   text-align: center;
@@ -369,13 +356,13 @@
 
 
 /* ================================================================
-   6. DETAIL VIEW
+   DETAIL VIEW
 ================================================================ */
 #detailView {
   padding-top: var(--nav-height);
 }
 
-/* Two-column layout: image left, info right */
+/* Two-column layout */
 .detail-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -400,7 +387,7 @@
   filter: drop-shadow(0 24px 64px rgba(0,0,0,0.22));
 }
 
-/* Right: scrollable info panel */
+/* Right: info panel */
 .detail-info {
   padding: 52px 60px 80px;
   display: flex;
@@ -443,12 +430,7 @@
   margin: 0;
 }
 
-
-/* ================================================================
-   7. FINISH SWATCHES, WATTAGE CHIPS, FEATURES, WARRANTY
-================================================================ */
-
-/* Section label (AVAILABLE WATTAGES, COLOUR FINISHES etc.) */
+/* Spec section label */
 .detail-spec-label {
   font-size: 10px;
   font-weight: 700;
@@ -475,7 +457,7 @@
   color: var(--text);
 }
 
-/* Finish swatches (larger on detail page) */
+/* Finish swatches — larger on detail page */
 .finish-swatches {
   display: flex;
   flex-wrap: wrap;
@@ -507,7 +489,7 @@
   color: var(--mid);
 }
 
-/* Key features list */
+/* Features list */
 .features-list {
   list-style: none;
   display: flex;
@@ -550,7 +532,7 @@
   align-self: flex-start;
 }
 
-/* Full specs accordion */
+/* Specs accordion */
 .specs-accordion {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -573,7 +555,7 @@
   color: var(--text);
   transition: background 0.2s;
 }
-.specs-toggle:hover { background: var(--light-bg); }
+.specs-toggle:hover { background: var(--light-bg, #f5f5f0); }
 .specs-toggle svg { transition: transform 0.3s ease; }
 .specs-toggle.open svg { transform: rotate(180deg); }
 .specs-body {
@@ -611,11 +593,24 @@
   transition: opacity 0.2s, transform 0.2s;
 }
 .btn-wa-enquiry:hover { opacity: 0.88; transform: translateY(-2px); }
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--off-white);
+  color: var(--text);
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-back:hover { background: var(--border); transform: translateY(-2px); }
 
-
-/* ================================================================
-   8. RELATED PRODUCTS SECTION
-================================================================ */
+/* Related products section */
 .related-section {
   padding: 60px 50px;
   background: var(--off-white);
@@ -634,20 +629,56 @@
   gap: 16px;
 }
 
-/* Active nav link highlight */
-.nav-products-active { font-weight: 700 !important; }
+/* Mobile filter row — hidden on desktop */
+.mobile-filter-row {
+  display: none;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--off-white);
+}
+
+/* Mobile sidebar backdrop overlay */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 399;
+}
+.sidebar-backdrop.open { display: block; }
+
+/* Mobile sidebar close button */
+.sidebar-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.sidebar-close-btn:hover { background: var(--off-white); }
 
 
 /* ================================================================
-   9. PRINT / PDF STYLES
+   PRINT / PDF STYLES
    window.print() generates a clean A4 PDF catalogue
 ================================================================ */
 @media print {
   nav, footer, .whatsapp-float,
   .prod-sidebar, .prod-header-actions,
-  .mobile-filter-row, .detail-ctas,
-  .specs-accordion, .prod-results-row,
-  .related-section { display: none !important; }
+  .search-bar-row, .btn-back,
+  .detail-ctas, .specs-accordion,
+  .prod-results-row, .related-section { display: none !important; }
 
   body { font-size: 12px; color: #000 !important; }
 
@@ -674,7 +705,7 @@
 
 
 /* ================================================================
-   10. RESPONSIVE
+   RESPONSIVE
 ================================================================ */
 @media (max-width: 1024px) {
   .prod-layout { grid-template-columns: 196px 1fr; }
@@ -693,6 +724,7 @@
 
   .prod-layout { grid-template-columns: 1fr; }
 
+  /* Sidebar becomes a full-screen drawer on mobile */
   .prod-sidebar {
     display: none;
     position: fixed;
