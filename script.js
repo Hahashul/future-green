@@ -296,9 +296,10 @@ const STRIP_PRODUCTS = [
   [0, 1].forEach(function () {
     STRIP_PRODUCTS.forEach(function (p) {
 
-      /* Create a new <div> element in memory */
-      var card = document.createElement('div');
+      /* Create a new <a> element — acts as card AND link to product page */
+      var card = document.createElement('a');
       card.className = 'strip-card';
+      card.href = 'products.html?id=' + p.id;
 
       /* Fill it with HTML. p.id, p.name, etc. come from STRIP_PRODUCTS above.
          The image path is: resources/<product-id>.png
@@ -322,9 +323,32 @@ const STRIP_PRODUCTS = [
         '</div>' +
         /* strip-card-label is the dark bar at the bottom of each card */
         '<div class="strip-card-label">' +
-          '<p class="strip-name">' + p.name + '</p>' +
-          '<p class="strip-sub">'  + p.cat  + '</p>' +
+          '<div class="strip-label-text">' +
+            '<p class="strip-name">' + p.name + '</p>' +
+            '<p class="strip-sub">'  + p.cat  + '</p>' +
+          '</div>' +
+          '<p class="strip-info-hint">View details →</p>' +
         '</div>';
+
+      /* ── Mobile tap-to-expand ────────────────────────────────
+         On touch devices (:hover isn't available), the first tap
+         expands the card to show the info panel. A second tap on the
+         same expanded card follows the link to the product page.
+         Tapping anywhere else (or a different card) collapses it.   */
+      card.addEventListener('click', function (e) {
+        /* Only intercept on touch/hover-none devices */
+        if (!window.matchMedia('(hover: none)').matches) return;
+
+        if (!this.classList.contains('expanded')) {
+          /* First tap: expand this card, collapse all others */
+          e.preventDefault();
+          document.querySelectorAll('.strip-card.expanded').forEach(function (c) {
+            c.classList.remove('expanded');
+          });
+          this.classList.add('expanded');
+        }
+        /* Second tap on an already-expanded card: let the link navigate */
+      });
 
       /* Add the finished card into the track in the page */
       track.appendChild(card);
@@ -367,6 +391,16 @@ const STRIP_PRODUCTS = [
       requestAnimationFrame(frame); /* schedule the next frame */
     }
     requestAnimationFrame(frame); /* kick off the loop */
+  });
+
+  /* ── Collapse expanded card when tapping outside it ─────── */
+  document.addEventListener('click', function (e) {
+    if (!window.matchMedia('(hover: none)').matches) return;
+    if (!e.target.closest('.strip-card')) {
+      document.querySelectorAll('.strip-card.expanded').forEach(function (c) {
+        c.classList.remove('expanded');
+      });
+    }
   });
 
   /* ── Pause on hover ──────────────────────────────────────── */

@@ -627,6 +627,12 @@ nav.nav-solid .hamburger span { background: var(--text); }
    Dark bg on hover so transparent product PNGs and white text read cleanly.
    Flex column: image+info row on top, label bar at bottom full width.
    Info panel slides in from right on hover. */
+/* anchor reset — card is now an <a> tag, remove default link styles */
+a.strip-card {
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
 .strip-card {
   position: relative;
   flex-shrink: 0;
@@ -690,6 +696,17 @@ nav.nav-solid .hamburger span { background: var(--text); }
   padding: 10px 14px 13px;
   background: rgba(0, 0, 0, 0.08);
   border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.strip-label-text {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 .strip-name {
   font-size: 12px;
@@ -710,6 +727,23 @@ nav.nav-solid .hamburger span { background: var(--text); }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.strip-info-hint {
+  display: none;          /* takes no space when hidden — was squishing the label text */
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.strip-card:hover .strip-info-hint {
+  display: block;
+}
+.strip-card.expanded .strip-info-hint {
+  display: block;
 }
 
 /* Info panel: slides in from right on hover */
@@ -1616,19 +1650,56 @@ a.location-link:hover { color: var(--accent); }
 
   .strip-nav        { display: none; }           /* remove prev/next arrows */
   .strip-wrapper    { overflow: hidden; cursor: default; }
-  .strip-card       { width: 180px; height: 260px; }
-  .strip-card:hover, .strip-card:active { width: 180px; }  /* no expand on mobile */
-  .strip-card-left  { flex-direction: column; }
+  .strip-card       { width: 160px; height: 240px; }
+  .strip-card:hover { width: 160px; }
+
+  /* Tap-expanded card: wider card, smaller image, info panel on right */
+  .strip-card.expanded {
+    width: 320px;
+    height: 240px;
+    border-color: rgba(120, 183, 40, 0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.1);
+    background: var(--off-white);
+    z-index: 10;
+  }
+  .strip-card.expanded .strip-card-img {
+    flex: 0 0 130px;
+    width: 130px;
+    padding: 12px 10px;
+  }
+  .strip-card.expanded .strip-card-img img {
+    max-width: 110px;
+    max-height: 120px;
+    transform: scale(1.05) translateY(-2px);
+  }
+  .strip-card.expanded .strip-card-info {
+    display: flex;
+    opacity: 1;
+    transform: translateX(0);
+    width: 190px;
+    padding: 12px 12px 12px 10px;
+    gap: 6px;
+  }
+  /* Tighter typography inside mobile info panel */
+  .strip-card.expanded .strip-info-name { font-size: 12px; }
+  .strip-card.expanded .strip-info-desc { font-size: 10px; line-height: 1.4; }
+  .strip-card.expanded .strip-info-tags { gap: 3px; margin-top: 0; }
+  .strip-card.expanded .strip-info-tags span {
+    font-size: 9px;
+    padding: 3px 7px;
+  }
+
+  .strip-card-left  { flex-direction: row; }
   .strip-card-img   {
-    flex: 1;
-    width: 100%;
+    flex: 0 0 160px;
+    width: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding: 14px;
   }
-  .strip-card-img img { max-width: 140px; max-height: 150px; width: 100%; margin: 0 auto; }
-  .strip-card-info  { display: none; }           /* hide info panel on mobile */
+  .strip-card-img img { max-width: 130px; max-height: 140px; width: 100%; margin: 0 auto; }
+  .strip-card-info  { display: none; }           /* hidden until .expanded is added */
 
   /* ABOUT: hide image on mobile, full-width text */
   .about-images { display: none; }
