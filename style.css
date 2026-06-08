@@ -730,7 +730,7 @@ a.strip-card {
 }
 
 .strip-info-hint {
-  display: none;          /* takes no space when hidden — was squishing the label text */
+  display: none;
   flex-shrink: 0;
   font-size: 12px;
   font-weight: 700;
@@ -738,12 +738,17 @@ a.strip-card {
   text-transform: uppercase;
   color: var(--accent);
   white-space: nowrap;
+  text-decoration: none;
 }
 .strip-card:hover .strip-info-hint {
   display: block;
 }
 .strip-card.expanded .strip-info-hint {
   display: block;
+}
+.strip-info-hint:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* Info panel: slides in from right on hover */
