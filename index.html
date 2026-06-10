@@ -867,6 +867,10 @@
        This is important — it runs AFTER all the HTML elements
        exist on the page, so JavaScript can find them. -->
   <script src="script.js"></script>
+  <script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/<unique-path>/script.js"></script>
 
 </body>
 </html>
