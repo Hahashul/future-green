@@ -229,7 +229,7 @@ function showDetail(p) {
   /* Specs table */
   const rows = [
     ['Category', p.category],
-    ['Wattages', p.wattages && p.wattages.length ? p.wattages.join(', ') + 'W' : '—'],
+    ['Wattages', p.wattages && p.wattages.length ? p.wattages.map(w => w + 'W').join(', ') : '—'],
     ['Finishes', p.finishes && p.finishes.length ? p.finishes.join(', ') : '—'],
     ['Shapes',   p.shapes   && p.shapes.length   ? p.shapes.join(', ')   : '—'],
     ['Warranty', p.warranty || '2-year'],

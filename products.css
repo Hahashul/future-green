@@ -655,7 +655,7 @@ html { scroll-behavior: smooth; }
 /* Related products section */
 .related-section {
   padding: 60px 50px;
-  background: var(--off-white);
+  background: var(--white);
   border-top: 1px solid var(--border);
 }
 .related-heading {
