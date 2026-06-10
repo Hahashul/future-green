@@ -309,3 +309,23 @@ function closeSidebar() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeSidebar();
 });
+
+
+/* ================================================================
+   8. BFCACHE FIX — re-init when user navigates back from detail view
+   ─────────────────────────────────────────────────────────────
+   Browsers (Chrome, Safari, Firefox) cache the page in memory when
+   navigating away. On back-navigation, they restore the frozen DOM
+   without re-running scripts — so #listingView stays display:none
+   and the filter button disappears. The 'pageshow' event fires on
+   every restore from cache (persisted === true), letting us reset.
+================================================================ */
+window.addEventListener('pageshow', function(e) {
+  if (e.persisted) {
+    /* Reset both views to their HTML defaults */
+    document.getElementById('listingView').style.display = '';
+    document.getElementById('detailView').style.display  = 'none';
+    /* Re-run init so the correct view renders for the current URL */
+    init();
+  }
+});

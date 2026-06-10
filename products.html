@@ -293,15 +293,6 @@
         </div>
       </div>
 
-      <!-- Mobile-only filter button — triggers sidebar drawer -->
-      <div class="mobile-filter-row" id="mobileFilterRow">
-        <button class="btn-mobile-filter" onclick="openSidebar()" aria-label="Open category filter">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-          </svg>
-          Filter by Category
-        </button>
-      </div>
     </div>
 
     <!-- Backdrop overlay — clicking it closes the mobile sidebar -->
@@ -324,6 +315,13 @@
         <div class="prod-results-row">
           <!-- Product count text e.g. "Showing 22 products" -->
           <p class="prod-count" id="prodCount"></p>
+          <!-- Mobile-only filter button — triggers sidebar drawer -->
+          <button class="btn-mobile-filter" onclick="openSidebar()" aria-label="Open category filter">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            Filter
+          </button>
         </div>
         <!-- ★ Product cards are injected here by products.js → renderGrid() -->
         <div class="prod-grid" id="prodGrid"></div>

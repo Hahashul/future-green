@@ -140,26 +140,33 @@ html { scroll-behavior: smooth; }
 }
 .btn-pdf:hover { background: #333; transform: translateY(-2px); }
 
-/* Mobile filter button — shown only on small screens */
+/* Mobile filter button — shown only on small screens, sits right of count */
 .btn-mobile-filter {
   display: none;
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: var(--white);
+  gap: 7px;
+  padding: 9px 16px;
+  background: #f4f2ee;
   color: var(--text);
-  border: 1.5px solid var(--border);
+  border: 1.5px solid #dedad4;
   border-radius: 6px;
   font-family: 'Lato', sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
-  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+  margin-left: auto;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
-.btn-mobile-filter:hover { border-color: var(--text); background: var(--off-white); }
-.btn-mobile-filter svg { color: var(--text); }
+.btn-mobile-filter:hover {
+  border-color: #c5c0b8;
+  background: #eceae5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.btn-mobile-filter svg { color: var(--text); opacity: 0.7; }
 
 
 /* ── MAIN LAYOUT ──────────────────────────────────────────────── */
@@ -671,13 +678,7 @@ html { scroll-behavior: smooth; }
   gap: 16px;
 }
 
-/* Mobile filter row — hidden on desktop */
-.mobile-filter-row {
-  display: none;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border);
-  background: var(--off-white);
-}
+/* Mobile filter row — removed; button now lives inside .prod-results-row */
 
 /* Mobile sidebar backdrop overlay */
 .sidebar-backdrop {
@@ -761,7 +762,6 @@ html { scroll-behavior: smooth; }
 @media (max-width: 700px) {
   .prod-header { height: 52vh; min-height: 360px; }
   .prod-hero-strip-inner { padding: 24px 20px 28px; flex-direction: column; align-items: flex-start; }
-  .mobile-filter-row { display: block; }
   .btn-mobile-filter { display: flex; }
   .sidebar-close-x { display: block; }
 
