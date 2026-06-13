@@ -240,7 +240,7 @@ revealElements.forEach(function (el) { revealObserver.observe(el); });
 /* ================================================================
    6. PRODUCT STRIP — JS-driven infinite scroll
    ─────────────────────────────────────────────────────────────
-   All 22 Future Green products from the 2026 catalogue.
+   All 31 Future Green products from the 2026 catalogue.
    Cards scroll continuously from right to left.
 
    HOW THE LOOP WORKS:
@@ -268,28 +268,37 @@ revealElements.forEach(function (el) { revealObserver.observe(el); });
 /* Each object {} here is one product card.
    Add a new {} with a comma before } to add another product.  */
 const STRIP_PRODUCTS = [
-  { id: 'iris-slim-panel',          name: 'IRIS Slim Panel',          cat: 'Recessed Slim Panel',    desc: 'Frameless flush light that disappears into the ceiling',        watts: '3W – 22W',     finish: 'WW · WH · NW' },
-  { id: 'ilex-pc-slim-panel',       name: 'ILEX PC Slim Panel',       cat: 'Recessed Slim Panel',    desc: 'The Iris panel, toughened with a polycarbonate body',           watts: '8W – 22W',     finish: 'WW · WH · NW' },
-  { id: 'iris-surface-panel',       name: 'IRIS Surface Panel',       cat: 'Surface Panel',          desc: 'All the panel light — none of the ceiling cutting',             watts: '8W – 22W',     finish: 'WW · WH · NW' },
-  { id: 'ilex-surface-panel',       name: 'ILEX Surface Panel',       cat: 'Surface Panel',          desc: 'Rugged PC surface light for everyday spaces',                   watts: '6W – 18W',     finish: 'WW · WH · NW' },
-  { id: 'couple-slim-panel',        name: 'Couple Slim Panel',        cat: 'Designer · Dual-Colour', desc: 'Two lights in one — white core, colour halo',                   watts: '3+3W – 12+4W', finish: 'WH · WW · R · B · G · P' },
-  { id: 'surface-couple-duo-panel', name: 'Surface Couple Duo',       cat: 'Designer · Dual-Colour', desc: 'The dual-colour Couple, in a surface-mount body',               watts: '3+3W – 12+4W', finish: 'WH · WW · R · B · G · P' },
-  { id: 'deep-junction-duo-clr',    name: 'Deep Junction Duo CLR',    cat: 'Designer · Dual-Colour', desc: 'Dual-colour deep downlight for standard junction boxes',         watts: '6+3W – 12+4W', finish: 'WH · WW · R · B · G · P' },
-  { id: 'frameless-downlight',      name: 'Frameless Downlight',      cat: 'Downlight',              desc: 'Surface-mount glow with no visible frame',                      watts: '10W – 24W',    finish: 'WW · WH · NW' },
-  { id: 'tulip-deep-light',         name: 'Tulip Deep Light',         cat: 'Downlight',              desc: 'Deep-set downlight that hides the glare',                       watts: '3W – 12W',     finish: 'WW · WH · NW' },
-  { id: 'lotus-concealed',          name: 'Lotus Concealed',          cat: 'COB Spotlight',          desc: 'Adjustable COB spot that aims light exactly where you want',    watts: '3W – 6W',      finish: 'WH · WW + Colours' },
-  { id: 'lily-cob-downlight',       name: 'Lily COB Downlight',       cat: 'COB Spotlight',          desc: 'Tiny COB downlight with a big, crisp punch',                    watts: '2W – 5W',      finish: 'WH · WW + Colours' },
-  { id: 'marigold-cob-spotlight',   name: 'Marigold COB Spotlight',   cat: 'COB Spotlight',          desc: 'Square-trim COB spot with a tilting head',                      watts: '3W – 6W',      finish: 'WH · WW + Colours' },
-  { id: 'bluebell-cob-spotlight',   name: 'Bluebell COB Spotlight',   cat: 'COB Spotlight',          desc: 'Deep-recess COB spotlight built to throw',                      watts: '2W – 5W',      finish: 'WH · WW + Colours' },
-  { id: 'dob-floodlight',           name: 'DOB Floodlight',           cat: 'Outdoor · Flood',        desc: 'Driver-on-board flood that lights up the whole yard',           watts: '50W – 200W',   finish: 'Cool White' },
-  { id: 'richline-flood-light',     name: 'Richline Flood Light',     cat: 'Outdoor · Flood',        desc: 'Slim premium flood for facades and frontage',                   watts: '50W – 200W',   finish: 'Cool White' },
-  { id: 'street-light',             name: 'Street Light',             cat: 'Outdoor · Street',       desc: 'Roads, lanes and campuses — lit clean and bright',              watts: '24W – 100W',   finish: 'Cool White' },
-  { id: '4-way-ball',               name: '4-Way Ball',               cat: 'Outdoor · Wall',         desc: 'Four crisp beams from one sculptural sphere',                   watts: 'Wall light',   finish: '8 colour finishes' },
-  { id: '2-way-wall-curved',        name: '2-Way Wall (Curved)',      cat: 'Outdoor · Wall',         desc: 'Up-and-down wash for walls and entryways',                      watts: 'Wall light',   finish: 'WW · WH · NW' },
-  { id: '2-way-wall-wedge',         name: '2-Way Wall (Wedge)',       cat: 'Outdoor · Wall',         desc: 'Sculpted wedge wall light with a warm up/down glow',            watts: 'Wall light',   finish: 'Warm White' },
-  { id: 'rope-light',               name: 'Rope Light',               cat: 'Flexible',               desc: 'Flexible glow that bends around anything',                      watts: 'Per metre',    finish: '8 colour finishes' },
-  { id: 'led-strip',                name: 'LED Strip',                cat: 'Flexible',               desc: 'Hidden cove and accent lighting on a reel',                     watts: 'Per reel',     finish: 'WW · WH · NW' },
-  { id: 'smps-driver',              name: 'SMPS Driver',              cat: 'Power',                  desc: 'Stable, protected power for your LED installs',                 watts: '2A – 33A',     finish: '12V / 24V DC' },
+  { id: 'iris_slim_panel', name: 'IRIS Slim Panel', cat: 'Recessed Slim Panel', desc: 'Frameless flush light that disappears into the ceiling', watts: '3W – 22W', finish: 'WW · WH · NW' },
+  { id: 'ilex_pc_slim_panel', name: 'ILEX PC Slim Panel', cat: 'Recessed Slim Panel', desc: 'The Iris panel, toughened with a polycarbonate body', watts: '8W – 22W', finish: 'WW · WH · NW' },
+  { id: 'iris_surface_panel', name: 'IRIS Surface Panel', cat: 'Surface Panel', desc: 'All the panel light — none of the ceiling cutting', watts: '8W – 22W', finish: 'WW · WH · NW' },
+  { id: 'ilex_surface_panel', name: 'ILEX Surface Panel', cat: 'Surface Panel', desc: 'Rugged PC surface light for everyday spaces', watts: '6W – 18W', finish: 'WW · WH · NW' },
+  { id: 'couple_slim_panel', name: 'Couple Slim Panel', cat: 'Designer · Dual-Colour', desc: 'Two lights in one — white core, colour halo', watts: '3+3W – 12+4W', finish: 'WH · WW + Colours' },
+  { id: 'surface_couple_duo_panel', name: 'Surface Couple Duo Panel', cat: 'Designer · Dual-Colour', desc: 'The dual-colour Couple, in a surface-mount body', watts: '3+3W – 12+4W', finish: 'WH · WW + Colours' },
+  { id: 'tulip_deep_junction_duo', name: 'Tulip Deep Junction Duo', cat: 'Designer · Dual-Colour', desc: 'Dual-colour deep downlight for standard junction boxes', watts: '7+7W – 12+12W', finish: 'WH · WW + Colours' },
+  { id: 'frameless_downlight', name: 'Frameless Downlight', cat: 'Downlight', desc: 'Surface-mount glow with no visible frame', watts: '10W – 24W', finish: 'WW · WH · NW' },
+  { id: 'tulip_deep_light', name: 'Tulip Deep Light', cat: 'Downlight', desc: 'Deep-set downlight that hides the glare', watts: '3W – 12W', finish: 'WW · WH · NW' },
+  { id: 'lotus_concealed', name: 'Lotus Concealed', cat: 'COB Spotlight', desc: 'Adjustable COB spot that aims light exactly where you want', watts: '3W – 6W', finish: 'WH · WW + Colours' },
+  { id: 'lily_cob_downlight', name: 'Lily COB Downlight', cat: 'COB Spotlight', desc: 'Tiny COB downlight with a big, crisp punch', watts: '3W', finish: 'WH · WW + Colours' },
+  { id: 'marigold_cob_spotlight', name: 'Marigold COB Spotlight', cat: 'COB Spotlight', desc: 'Square-trim COB spot with a tilting head', watts: '5W', finish: 'WH · WW + Colours' },
+  { id: 'bluebell_cob_spotlight', name: 'Bluebell COB Spotlight', cat: 'COB Spotlight', desc: 'Deep-recess COB spotlight built to throw', watts: '9W – 50W', finish: 'WH · WW + Colours' },
+  { id: 'dob_floodlight', name: 'DOB Floodlight', cat: 'Outdoor · Flood', desc: 'Driver-on-board flood that lights up the whole yard', watts: '50W – 200W', finish: 'WH · WW' },
+  { id: 'dahlia_cob_spotlight', name: 'Dahlia COB Spotlight', cat: 'Premium · COB Spotlight', desc: 'Jewel-finish reflector, deep anti-glare glow', watts: '7W – 18W', finish: 'WW · NW · WH · 3-in-1' },
+  { id: 'calla_deep_downlight', name: 'Calla Deep Downlight', cat: 'Premium · COB Downlight', desc: 'Sleek deep downlight that hides the glare', watts: '7W – 18W', finish: 'WW · NW · WH · 3-in-1' },
+  { id: 'aster_track_spotlight', name: 'Aster Track Spotlight', cat: 'Premium · Track/Wall Spot', desc: 'Adjustable surface spotlight for walls & tracks', watts: '9W – 50W', finish: 'WW · NW · WH' },
+  { id: 'magnolia_wall_light', name: 'Magnolia Wall Light', cat: 'Premium · Wall Elevation', desc: 'Up-and-down glow with a warm gold interior', watts: '6W', finish: 'WW' },
+  { id: 'camellia_surface_spot', name: 'Camellia Surface Spot', cat: 'Premium · Surface COB Spot', desc: 'Surface cylinder spot with a jewel reflector', watts: '7W – 18W', finish: 'WH · WW · NW · 3-in-1' },
+  { id: 'orchid_floodlight', name: 'Orchid Floodlight', cat: 'Outdoor · Flood', desc: 'Slim premium flood for facades and frontage', watts: '50W – 200W', finish: 'WH · WW' },
+  { id: 'street_light', name: 'Street Light', cat: 'Outdoor · Street', desc: 'Roads, lanes and campuses — lit clean and bright', watts: '24W – 100W', finish: 'Cool White' },
+  { id: 'gazania_solar_street_light', name: 'Gazania Solar Street Light', cat: 'Outdoor · Solar Street', desc: 'All-in-one solar street light — smart & bright', watts: '5W – 20W', finish: 'Cool White' },
+  { id: 'sunflower_high_bay', name: 'Sunflower High Bay', cat: 'Outdoor · High Bay', desc: 'Round high-power light for tall industrial spaces', watts: '100W – 200W', finish: 'WH · NW' },
+  { id: 'daisy_garden_spike', name: 'Daisy Garden Spike', cat: 'Outdoor · Garden Spike', desc: 'Spike-mount spotlight to light up gardens', watts: '7W – 12W', finish: 'WW · G · R · P · B' },
+  { id: '4way_ball', name: '4-Way Ball', cat: 'Outdoor · Wall', desc: 'Four crisp beams from one sculptural sphere', watts: 'Wall light', finish: '8 colour finishes' },
+  { id: '2way_wall_curved', name: '2-Way Wall (Curved)', cat: 'Outdoor · Wall', desc: 'Up-and-down wash for walls and entryways', watts: 'Wall light', finish: 'WW · WH · NW' },
+  { id: '2way_wall_wedge', name: '2-Way Wall (Wedge)', cat: 'Outdoor · Wall', desc: 'Sculpted wedge wall light with a warm up/down glow', watts: 'Wall light', finish: 'WW' },
+  { id: 'rope_light', name: 'Rope Light', cat: 'Flexible', desc: 'Flexible glow that bends around anything', watts: 'Per metre', finish: '8 colour finishes' },
+  { id: 'led_strip', name: 'LED Strip', cat: 'Flexible', desc: 'Hidden cove and accent lighting on a reel', watts: 'Per reel', finish: 'WW · WH · NW' },
+  { id: 'smps_driver', name: 'SMPS Driver', cat: 'Power', desc: 'Stable, protected power for your LED installs', watts: '2A – 33A', finish: '12V / 24V DC' },
+  { id: 'track_rail', name: 'Track Rail', cat: 'Track · Rail', desc: 'Surface track for LED track spotlights', watts: '1 Mtr – 2 Mtr', finish: 'White · Black' },
 ];
 
 /* ── IIFE — wraps the whole strip so its variables stay private ── */

@@ -61,7 +61,7 @@ const CATS = [
     slug: 'all',
     label: 'All Products',
     json: null,
-    sub: 'Browse the complete Future Green LED range — all 22 products.',
+    sub: 'Browse the complete Future Green LED range — all 31 products.',
     hero: 'resources/product-range-overview.png'
   },
   {
@@ -125,281 +125,525 @@ const CATS = [
 ──────────────────────────────────────────────────────────────── */
 const PRODUCTS = [
 
-  /* ── COB Spotlights ── */
   {
-    id: 'lotus-concealed',
-    name: 'Lotus Concealed',
-    categories: ['Indoor Lights', 'Office Lights'],
-    tagline: 'Adjustable COB spot that aims light exactly where you want.',
-    description: 'The Lotus Concealed is an ultra-slim recessed COB spotlight with a fully adjustable head. Ideal for accent lighting in galleries, retail displays, and premium residential projects.',
-    wattages: [3, 6],
-    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
-    shapes: ['Round'],
-    features: ['High CRI ≥90', 'Adjustable beam direction', 'Concealed recessed installation', 'Flicker-free driver'],
-    warranty: '2-year'
-  },
-  {
-    id: 'lily-cob-downlight',
-    name: 'Lily COB Downlight',
-    categories: ['Indoor Lights', 'Office Lights'],
-    tagline: 'Tiny COB downlight with a big, crisp punch.',
-    description: 'A compact recessed COB downlight that delivers a sharp, focused beam from a very small aperture. Perfect for tight ceiling cuts and accent work in residential and retail spaces.',
-    wattages: [2, 5],
-    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
-    shapes: ['Round'],
-    features: ['Compact aperture', 'High CRI ≥90', 'Crisp focused beam', 'Multiple colour finishes'],
-    warranty: '2-year'
-  },
-  {
-    id: 'marigold-cob-spotlight',
-    name: 'Marigold COB Spotlight',
-    categories: ['Indoor Lights', 'Office Lights'],
-    tagline: 'Square-trim COB spot with a tilting head.',
-    description: 'The Marigold COB Spotlight features a square trim ring and a fully tilting head, giving designers the flexibility to highlight artwork, products, and architectural details with precision.',
-    wattages: [3, 6],
-    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
-    shapes: ['Square'],
-    features: ['Square trim ring', 'Tilting head', 'High CRI ≥90', 'Anti-glare design'],
-    warranty: '2-year'
-  },
-  {
-    id: 'bluebell-cob-spotlight',
-    name: 'Bluebell COB Spotlight',
-    categories: ['Indoor Lights', 'Office Lights'],
-    tagline: 'Deep-recess COB spotlight built to throw.',
-    description: 'The Bluebell is a deep-recess COB spotlight engineered for long-throw accent lighting. Its deep housing minimises glare and concentrates the beam for dramatic effect.',
-    wattages: [2, 5],
-    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
-    shapes: ['Round'],
-    features: ['Deep-recess housing', 'Long-throw beam', 'Minimal glare', 'High CRI ≥90'],
-    warranty: '2-year'
-  },
-
-  /* ── Panel Lights ── */
-  {
-    id: 'iris-slim-panel',
+    id: 'iris_slim_panel',
     name: 'IRIS Slim Panel',
     categories: ['Indoor Lights', 'Commercial & Industrial Lights', 'Office Lights'],
     tagline: 'Frameless flush light that disappears into the ceiling.',
-    description: 'The IRIS Slim Panel has a fully frameless design that blends seamlessly into any false ceiling. Ultra-thin profile, even light distribution, and easy clip-in installation.',
-    wattages: [3, 8, 12, 18, 22],
+    description: 'An ultra-slim recessed panel that sits perfectly flush for a clean, modern ceiling. Spreads soft, even, glare-free light across living rooms, kitchens and offices.',
+    wattages: [3, 8, 12, 15, 22],
     finishes: ['WW', 'WH', 'NW'],
-    shapes: ['Square', 'Rectangle'],
-    features: ['Frameless flush design', 'Uniform light distribution', 'Clip-in installation', 'Flicker-free'],
+    shapes: ['Round', 'Square'],
+    features: [
+      'Wafer-thin profile fits shallow false ceilings',
+      '3-in-1 colour switch (warm / natural / cool) on select models',
+      'Uniform glow with no visible hot spots'
+    ],
     warranty: '2-year'
   },
+
   {
-    id: 'ilex-pc-slim-panel',
+    id: 'ilex_pc_slim_panel',
     name: 'ILEX PC Slim Panel',
     categories: ['Indoor Lights', 'Commercial & Industrial Lights', 'Office Lights'],
-    tagline: 'The IRIS panel, toughened with a polycarbonate body.',
-    description: 'The ILEX takes the IRIS Slim Panel design and reinforces it with a polycarbonate body for extra durability. Ideal for high-traffic areas, schools, and commercial spaces.',
-    wattages: [8, 12, 18, 22],
+    tagline: 'The Iris panel, toughened with a polycarbonate body.',
+    description: 'Same flush, even glow as the Iris — built into a sturdy polycarbonate housing and diffuser that resists yellowing and stays bright for years.',
+    wattages: [8, 12, 15, 22],
     finishes: ['WW', 'WH', 'NW'],
-    shapes: ['Square', 'Rectangle'],
-    features: ['Polycarbonate body', 'Impact-resistant', 'Uniform light distribution', 'Easy installation'],
+    shapes: ['Round', 'Square'],
+    features: [
+      'Durable PC body and diffuser, ideal for humid rooms',
+      'Smooth, uniform light with a wide spread',
+      '3-in-1 colour option on select models'
+    ],
     warranty: '2-year'
   },
+
   {
-    id: 'iris-surface-panel',
+    id: 'iris_surface_panel',
     name: 'IRIS Surface Panel',
     categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'All the panel light — none of the ceiling cutting.',
-    description: 'The IRIS Surface Panel brings the clean, frameless aesthetic of the IRIS Slim Panel to surface mounting. No false ceiling required — simply fix directly to the ceiling or wall.',
-    wattages: [8, 12, 18, 22],
+    description: 'Mounts straight onto a solid ceiling, so it is perfect for concrete, rented homes and retrofits where recessing simply is not an option.',
+    wattages: [8, 15, 22],
     finishes: ['WW', 'WH', 'NW'],
-    shapes: ['Square', 'Rectangle'],
-    features: ['No ceiling cutting needed', 'Surface or wall mount', 'Integrated driver', 'Frameless look'],
+    shapes: ['Round', 'Square'],
+    features: [
+      'No cutout needed — fixes to any flat ceiling',
+      '3-in-1 colour switch on select models',
+      'Slim surface body with even, comfortable output'
+    ],
     warranty: '2-year'
   },
+
   {
-    id: 'ilex-surface-panel',
+    id: 'ilex_surface_panel',
     name: 'ILEX Surface Panel',
     categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Rugged PC surface light for everyday spaces.',
-    description: 'A robust polycarbonate surface panel for areas where durability counts. Easy to fit, resistant to impact, and suitable for corridors, utility rooms, garages, and commercial interiors.',
+    description: 'A domed polycarbonate surface light that throws a soft, wide glow — a dependable choice for corridors, balconies, stairwells and utility areas.',
     wattages: [6, 12, 18],
     finishes: ['WW', 'WH', 'NW'],
-    shapes: ['Square', 'Rectangle'],
-    features: ['Polycarbonate housing', 'Impact-resistant', 'Direct surface mount', 'Long 50,000 hr life'],
+    shapes: ['Round', 'Square'],
+    features: [
+      'Tough polycarbonate build',
+      'Soft, wide-angle diffusion',
+      'Quick surface installation, no recess'
+    ],
     warranty: '2-year'
   },
 
-  /* ── Designer Dual-Colour (counted as Downlights in filter) ── */
   {
-    id: 'couple-slim-panel',
+    id: 'couple_slim_panel',
     name: 'Couple Slim Panel',
     categories: ['Indoor Lights'],
     tagline: 'Two lights in one — white core, colour halo.',
-    description: 'The Couple Slim Panel combines a white central light with a coloured halo ring. Switch between white-only and dual-colour modes to create dramatic, decorative ceiling effects.',
-    wattages: [3, 6, 9, 12, 16],
+    description: 'A recessed panel with an independent coloured outer ring. Run the white centre alone for everyday light, or add the colour halo for mood and celebration.',
+    wattages: [3, 4, 6, 12],
     finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
-    shapes: ['Round'],
-    features: ['Dual-colour white + halo', 'Mode switching', 'Decorative ceiling effect', 'Multiple colour options'],
-    warranty: '2-year'
-  },
-  {
-    id: 'surface-couple-duo-panel',
-    name: 'Surface Couple Duo',
-    categories: ['Indoor Lights'],
-    tagline: 'The dual-colour Couple, in a surface-mount body.',
-    description: 'All the visual drama of the Couple Slim Panel in a surface-mount housing. No ceiling void needed — perfect for feature rooms, hospitality, and retail environments.',
-    wattages: [3, 6, 9, 12, 16],
-    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
-    shapes: ['Round'],
-    features: ['Surface-mount housing', 'Dual-colour effect', 'No ceiling void needed', 'Multiple colour options'],
-    warranty: '2-year'
-  },
-  {
-    id: 'deep-junction-duo-clr',
-    name: 'Deep Junction Duo CLR',
-    categories: ['Indoor Lights'],
-    tagline: 'Dual-colour deep downlight for standard junction boxes.',
-    description: 'A deep recessed dual-colour downlight designed to fit standard electrical junction boxes. The deep housing hides glare while the colour halo adds a decorative touch to any room.',
-    wattages: [6, 9, 12, 16],
-    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
-    shapes: ['Round'],
-    features: ['Fits standard junction boxes', 'Deep anti-glare housing', 'Dual-colour effect', 'Easy retrofit'],
+    shapes: ['Round', 'Square'],
+    features: [
+      'White centre + coloured rim, switched independently',
+      'Six halo finishes for instant ambience',
+      'Perfect for festivals, bedrooms and lounges'
+    ],
     warranty: '2-year'
   },
 
-  /* ── Downlights ── */
   {
-    id: 'frameless-downlight',
+    id: 'surface_couple_duo_panel',
+    name: 'Surface Couple Duo Panel',
+    categories: ['Indoor Lights'],
+    tagline: 'The dual-colour Couple, in a surface-mount body.',
+    description: 'White centre plus a coloured halo in a surface fixture — decorative accent lighting for solid ceilings, with no cavity or cutting required.',
+    wattages: [3, 4, 6, 12],
+    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+    shapes: ['Round', 'Square'],
+    features: [
+      'White + coloured ring, controlled separately',
+      'Six halo colours to set any mood',
+      'Surface fit — mounts on any flat ceiling'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'tulip_deep_junction_duo',
+    name: 'Tulip Deep Junction Duo',
+    categories: ['Indoor Lights'],
+    tagline: 'Dual-colour deep downlight for standard junction boxes.',
+    description: 'A deep-set anti-glare downlight with a white core and coloured ring, sized to drop straight into a standard junction box opening.',
+    wattages: [7, 12],
+    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+    shapes: ['Round'],
+    features: [
+      'Fits standard junction-box cut-outs',
+      'White + colour ring for daily and accent use',
+      'Deep design softens glare for relaxed rooms'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'frameless_downlight',
     name: 'Frameless Downlight',
     categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Surface-mount glow with no visible frame.',
-    description: 'The Frameless Downlight has a bezel-free design that creates a floating glow effect. Wide beam angle, smooth dimming, and a clean flush finish for modern interiors.',
-    wattages: [10, 15, 18, 24],
+    description: 'A clean, borderless surface light for ceilings without a cavity — minimal trim, maximum spread, and a seamless modern finish.',
+    wattages: [10, 15, 24],
     finishes: ['WW', 'WH', 'NW'],
-    shapes: ['Round'],
-    features: ['Frameless bezel-free design', 'Wide 120° beam', 'Dimmable', 'High CRI ≥80'],
+    shapes: ['Round', 'Square'],
+    features: [
+      'No false ceiling needed',
+      'Borderless edge for a flush, modern look',
+      'Wide, even spread from a low-profile body'
+    ],
     warranty: '2-year'
   },
+
   {
-    id: 'tulip-deep-light',
+    id: 'tulip_deep_light',
     name: 'Tulip Deep Light',
     categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Deep-set downlight that hides the glare.',
-    description: 'The Tulip Deep Light uses a deep recessed housing to push the light source well inside the ceiling, eliminating glare and creating a comfortable, diffused glow for living and work spaces.',
-    wattages: [3, 5, 7, 9, 12],
+    description: 'The LED sits deep inside the housing, so you see the light, not the source — soft, comfortable pools of light for bedrooms and dining areas.',
+    wattages: [3, 7, 12],
     finishes: ['WW', 'WH', 'NW'],
     shapes: ['Round'],
-    features: ['Deep anti-glare housing', 'Comfortable diffused light', 'Easy spring-clip install', 'Dimmable'],
+    features: [
+      'Deep recess design cuts direct glare',
+      'Flicker-free, eye-friendly output',
+      'Compact cut-out with easy spring-clip fit'
+    ],
     warranty: '2-year'
   },
 
-  /* ── Flood Lights ── */
   {
-    id: 'dob-floodlight',
+    id: 'lotus_concealed',
+    name: 'Lotus Concealed',
+    categories: ['Indoor Lights', 'Office Lights'],
+    tagline: 'Adjustable COB spot that aims light exactly where you want.',
+    description: 'A tiltable concealed COB spotlight for highlighting art, niches and architectural features — a crisp, focused beam behind a clean recessed trim.',
+    wattages: [3, 5, 6],
+    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+    shapes: ['Round'],
+    features: [
+      'Rotatable / tiltable head to aim the beam',
+      'Sharp COB beam for accent and highlight',
+      'Concealed trim sits flush in the ceiling'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'lily_cob_downlight',
+    name: 'Lily COB Downlight',
+    categories: ['Indoor Lights', 'Office Lights'],
+    tagline: 'Tiny COB downlight with a big, crisp punch.',
+    description: 'A compact fixed COB downlight for tight spaces — wardrobes, display shelves and accent rows where a small, bright point of light does the job.',
+    wattages: [3],
+    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+    shapes: ['Round'],
+    features: [
+      'Small footprint, strong focused output',
+      'Ideal for shelves, display and task accents',
+      'Cool-running, low-wattage COB'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'marigold_cob_spotlight',
+    name: 'Marigold COB Spotlight',
+    categories: ['Indoor Lights', 'Office Lights'],
+    tagline: 'Square-trim COB spot with a tilting head.',
+    description: 'A square recessed COB spotlight that tilts to direct a clean beam — a sharp, architectural look for modern interiors and retail.',
+    wattages: [5],
+    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+    shapes: ['Round', 'Square'],
+    features: [
+      'Square trim with adjustable tilt head',
+      'Focused COB beam for accents and tasks',
+      'Anti-glare reflector for comfortable light'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'bluebell_cob_spotlight',
+    name: 'Bluebell COB Spotlight',
+    categories: ['Indoor Lights', 'Office Lights'],
+    tagline: 'Deep-recess COB spotlight built to throw.',
+    description: 'A larger tiltable COB spotlight with a finned heatsink for sustained brightness — strong, directional light for high ceilings, showrooms and retail.',
+    wattages: [9, 12, 16, 30, 50],
+    finishes: ['WH', 'WW', 'R', 'B', 'G', 'P'],
+    shapes: ['Round'],
+    features: [
+      'Tilting head with deep anti-glare housing',
+      'Finned heatsink for cool, stable performance',
+      'Punchy directional beam for tall spaces'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'dob_floodlight',
     name: 'DOB Floodlight',
     categories: ['Commercial & Industrial Lights', 'Stadium Lights'],
     tagline: 'Driver-on-board flood that lights up the whole yard.',
-    description: 'The DOB (Driver-on-Board) Floodlight integrates the driver directly into the fitting for a compact, reliable build. High-lumen output and IP65 weatherproofing for demanding outdoor use.',
+    description: 'A floodlight for facades, parking, signage and security — wide, powerful white light in a slim die-cast body that shrugs off the weather.',
     wattages: [50, 100, 150, 200],
-    finishes: ['WH'],
-    shapes: ['Rectangular'],
-    features: ['Integrated DOB driver', 'IP65 weatherproof', 'High-lumen output', 'Die-cast aluminium housing'],
-    warranty: '2-year'
-  },
-  {
-    id: 'richline-flood-light',
-    name: 'Richline Flood Light',
-    categories: ['Commercial & Industrial Lights', 'Stadium Lights'],
-    tagline: 'Slim premium flood for facades and frontage.',
-    description: 'The Richline is a slim, architecturally refined floodlight for building facades, landscape lighting, and entrance areas. A low-profile body and tempered glass lens give it a premium appearance.',
-    wattages: [50, 100, 150, 200],
-    finishes: ['WH'],
-    shapes: ['Rectangular'],
-    features: ['Slim profile design', 'IP65 rated', 'Tempered glass lens', 'Adjustable bracket'],
+    finishes: ['WH', 'WW'],
+    shapes: [],
+    features: [
+      'DOB design means fewer failure points',
+      'Weather-resistant for outdoor mounting',
+      '50-200W coverage for large open areas'
+    ],
     warranty: '2-year'
   },
 
-  /* ── Street & Wall Lights ── */
   {
-    id: 'street-light',
+    id: 'orchid_floodlight',
+    name: 'Orchid Floodlight',
+    categories: ['Commercial & Industrial Lights', 'Stadium Lights'],
+    tagline: 'Slim premium flood for facades and frontage.',
+    description: 'A refined slim-profile floodlight for building fronts, hoardings and gardens — a clean, broad white wash with a low-glare face.',
+    wattages: [50, 100, 150, 200],
+    finishes: ['WH', 'WW'],
+    shapes: [],
+    features: [
+      'Slim, low-profile die-cast housing',
+      'Broad, even outdoor coverage',
+      'Adjustable mounting bracket'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'street_light',
     name: 'Street Light',
     categories: ['Commercial & Industrial Lights', 'Stadium Lights'],
     tagline: 'Roads, lanes and campuses — lit clean and bright.',
-    description: 'Engineered for road-surface photometry, this street light delivers wide, uniform illumination across roads, lanes, and campus paths. Die-cast aluminium housing with high surge protection.',
-    wattages: [24, 36, 50, 80, 100],
+    description: 'An efficient LED street light for roads, society lanes, parking and industrial yards, with a wide throw and a sturdy outdoor build.',
+    wattages: [24, 36, 50, 100],
     finishes: ['WH'],
-    shapes: ['Arm-mount'],
-    features: ['Road-optimised optics', 'IP65 rated', 'Die-cast aluminium', 'Surge protection 10 kV'],
-    warranty: '2-year'
-  },
-  {
-    id: '4-way-ball',
-    name: '4-Way Ball',
-    categories: ['Outdoor Lights'],
-    tagline: 'Four crisp beams from one sculptural sphere.',
-    description: 'A bold outdoor wall light shaped like a sphere with four directional beam outlets. Casts four crisp pools of light on walls and pathways, available in 8 colour finishes.',
-    wattages: [],
-    finishes: ['WW', 'WH', 'NW', 'R', 'B', 'G', 'P', 'IB'],
-    shapes: ['Sphere'],
-    features: ['4-directional beams', '8 colour finishes', 'IP44 rated', 'Die-cast body'],
-    warranty: '2-year'
-  },
-  {
-    id: '2-way-wall-curved',
-    name: '2-Way Wall (Curved)',
-    categories: ['Architectural Lights', 'Outdoor Lights'],
-    tagline: 'Up-and-down wash for walls and entryways.',
-    description: 'A curved-body outdoor wall light that projects light both upward and downward, creating a warm wash effect on walls and gates. Ideal for residential entrances and hotel facades.',
-    wattages: [],
-    finishes: ['WW', 'WH', 'NW'],
-    shapes: ['Curved'],
-    features: ['Up-down light wash', 'Curved premium body', 'IP44 rated', 'Easy wall mount'],
-    warranty: '2-year'
-  },
-  {
-    id: '2-way-wall-wedge',
-    name: '2-Way Wall (Wedge)',
-    categories: ['Architectural Lights', 'Outdoor Lights'],
-    tagline: 'Sculpted wedge wall light with a warm up/down glow.',
-    description: 'A wedge-shaped outdoor wall light with an angular, architectural silhouette. Projects a warm up-and-down glow for a sophisticated look on exterior walls, pillars, and entrances.',
-    wattages: [],
-    finishes: ['WW'],
-    shapes: ['Wedge'],
-    features: ['Wedge architectural design', 'Up-down warm glow', 'IP44 rated', 'Powder-coated finish'],
+    shapes: [],
+    features: [
+      'Wide road-optimised beam pattern',
+      'Tough, weather-ready housing',
+      '24-100W for side lanes to main roads'
+    ],
     warranty: '2-year'
   },
 
-  /* ── Rope, Strip & Power ── */
   {
-    id: 'rope-light',
+    id: '4way_ball',
+    name: '4-Way Ball',
+    categories: ['Outdoor Lights'],
+    tagline: 'Four crisp beams from one sculptural sphere.',
+    description: 'A spherical outdoor wall light that throws four directional beams — dramatic accents for facades, pillars, gates and boundary walls.',
+    wattages: [],
+    finishes: ['WW', 'WH', 'R', 'B', 'G', 'P', 'IB', 'YG'],
+    shapes: [],
+    features: [
+      'Four-direction beam pattern',
+      'Weather-ready for exterior walls',
+      'Warm / white plus decorative colour options'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: '2way_wall_curved',
+    name: '2-Way Wall (Curved)',
+    categories: ['Architectural Lights', 'Outdoor Lights'],
+    tagline: 'Up-and-down wash for walls and entryways.',
+    description: 'A compact up/down outdoor wall light casting twin beams for a modern architectural wash on gates, porches and columns.',
+    wattages: [],
+    finishes: ['WW', 'WH', 'NW'],
+    shapes: [],
+    features: [
+      'Two-direction up / down beams',
+      'Weather-ready exterior build',
+      'Clean, minimal modern form'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: '2way_wall_wedge',
+    name: '2-Way Wall (Wedge)',
+    categories: ['Architectural Lights', 'Outdoor Lights'],
+    tagline: 'Sculpted wedge wall light with a warm up/down glow.',
+    description: 'A faceted wedge-form wall light that casts a warm beam up and down — a designer accent for entrances, balconies and feature walls.',
+    wattages: [],
+    finishes: ['WW'],
+    shapes: [],
+    features: [
+      'Twin up / down beam in a faceted body',
+      'Warm-white glow for inviting entrances',
+      'Weather-ready outdoor housing'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'rope_light',
     name: 'Rope Light',
     categories: ['Indoor Lights'],
     tagline: 'Flexible glow that bends around anything.',
-    description: 'A 360° visible LED rope light that bends in any direction. Perfect for outlining signage, architectural edges, furniture, and festive displays. Available in 8 colour options.',
+    description: 'Weather-friendly LED rope light for outlines, railings, festivals and facades — cut to length and run it along any curve.',
     wattages: [],
     finishes: ['WW', 'WH', 'R', 'B', 'G', 'P', 'IB', 'YG'],
-    shapes: ['Round rope'],
-    features: ['360° visible glow', 'Bends in any direction', 'IP44 rated', 'Per-metre cutting'],
+    shapes: [],
+    features: [
+      'Bends around edges, railings and signage',
+      'Eight finishes, from warm white to RGB tones',
+      'Long runs with a low power draw'
+    ],
     warranty: '2-year'
   },
+
   {
-    id: 'led-strip',
+    id: 'led_strip',
     name: 'LED Strip',
     categories: ['Indoor Lights'],
     tagline: 'Hidden cove and accent lighting on a reel.',
-    description: 'Professional SMD LED strip for cove lighting, under-cabinet illumination, display cases, and decorative accents. Self-adhesive backing for quick installation. Cut to length as needed.',
+    description: 'Self-adhesive LED strip for coves, under-cabinets, mirrors and shelves — tuck it out of sight and let the glow do the work.',
     wattages: [],
     finishes: ['WW', 'WH', 'NW'],
-    shapes: ['Strip'],
-    features: ['Self-adhesive 3M tape', 'Cut-to-length', 'IP20 / IP65 options', 'Consistent colour temperature'],
+    shapes: [],
+    features: [
+      'Self-adhesive and cut-to-length',
+      'Even line of light for coves and edges',
+      'Pairs with the Future Green SMPS driver'
+    ],
     warranty: '2-year'
   },
+
   {
-    id: 'smps-driver',
+    id: 'smps_driver',
     name: 'SMPS Driver',
     categories: ['Outdoor Lights'],
     tagline: 'Stable, protected power for your LED installs.',
-    description: 'A switching-mode power supply (SMPS) for driving 12V and 24V LED strips and rope lights. Built-in short-circuit, overload, and over-voltage protection for safe, reliable operation.',
+    description: 'A switch-mode power supply delivering clean, regulated DC for strips, modules and signage — with built-in short-circuit and overload protection.',
     wattages: [],
     finishes: [],
     shapes: [],
-    features: ['12V / 24V DC output', 'Short-circuit protection', 'Overload protection', 'Compact metal housing'],
+    features: [
+      'Regulated, stable output for long LED life',
+      'Short-circuit, overload & over-voltage protection',
+      'From 2A to 33A for small to large loads'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'dahlia_cob_spotlight',
+    name: 'Dahlia COB Spotlight',
+    categories: ['Indoor Lights', 'Office Lights'],
+    tagline: 'Jewel-finish reflector, deep anti-glare glow.',
+    description: 'Flagship premium COB spotlight with a jewel-finish reflector and deep anti-glare cup, crafted for homes, retail & hospitality.',
+    wattages: [7, 12, 18],
+    finishes: ['WW', 'NW', 'WH', '3-in-1'],
+    shapes: ['Round'],
+    features: [
+      'Rose-gold or gun-black mirror reflector',
+      'Die-cast body + finned heatsink, ~50,000 hrs'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'calla_deep_downlight',
+    name: 'Calla Deep Downlight',
+    categories: ['Indoor Lights', 'Office Lights'],
+    tagline: 'Sleek deep downlight that hides the glare.',
+    description: 'A flagship premium deep downlight crafted for homes, retail & hospitality with a deep anti-glare cup that tucks the LED out of sight.',
+    wattages: [7, 12, 18],
+    finishes: ['WW', 'NW', 'WH', '3-in-1'],
+    shapes: ['Round'],
+    features: [
+      'Deep anti-glare cup tucks the LED out of sight',
+      'Matte black or white die-cast body'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'aster_track_spotlight',
+    name: 'Aster Track Spotlight',
+    categories: ['Indoor Lights', 'Commercial & Industrial Lights', 'Office Lights'],
+    tagline: 'Adjustable surface spotlight for walls & tracks.',
+    description: 'A premium adjustable surface spotlight for walls and tracks, crafted for homes, retail & hospitality with high-CRI COB output.',
+    wattages: [9, 16, 30, 50],
+    finishes: ['WW', 'NW', 'WH'],
+    shapes: [],
+    features: [
+      'High-CRI COB with anti-glare reflector',
+      'Adjustable head — surface or track mount'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'magnolia_wall_light',
+    name: 'Magnolia Wall Light',
+    categories: ['Architectural Lights', 'Outdoor Lights'],
+    tagline: 'Up-and-down glow with a warm gold interior.',
+    description: 'Flagship premium wall light with twin up/down beams and a matte black body with warm gold interior, crafted for homes, retail & hospitality.',
+    wattages: [6],
+    finishes: ['WW'],
+    shapes: [],
+    features: [
+      'Twin up / down beams for a refined wall wash',
+      'Matte black body with warm gold interior'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'camellia_surface_spot',
+    name: 'Camellia Surface Spot',
+    categories: ['Indoor Lights', 'Office Lights'],
+    tagline: 'Surface cylinder spot with a jewel reflector.',
+    description: 'A premium surface cylinder spot with a mirror-finish jewel reflector, crafted for homes, retail & hospitality.',
+    wattages: [7, 12, 18],
+    finishes: ['WH', 'WW', 'NW', '3-in-1'],
+    shapes: [],
+    features: [
+      'Mirror-finish reflector in a clean cylinder',
+      'Crisp COB beam for accent and highlight'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'gazania_solar_street_light',
+    name: 'Gazania Solar Street Light',
+    categories: ['Outdoor Lights', 'Landscape Lights'],
+    tagline: 'All-in-one solar street light — smart & bright.',
+    description: 'A self-contained solar street light with panel, LiFePO4 battery and LED in one body. No wiring, no power bill — auto-on at dusk, with remote.',
+    wattages: [5, 10, 15, 20],
+    finishes: ['Cool White'],
+    shapes: [],
+    features: [
+      '100% solar — zero electricity bill, no wiring',
+      'Motion sensor + remote, smart dusk-dawn modes',
+      'IP65 weatherproof, LiFePO4 long-life battery'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'sunflower_high_bay',
+    name: 'Sunflower High Bay',
+    categories: ['Commercial & Industrial Lights', 'Stadium Lights'],
+    tagline: 'Round high-power light for tall industrial spaces.',
+    description: 'A powerful UFO-style high bay with a finned die-cast body and an adjustable bracket — bright, even light for warehouses, factories, workshops and large halls.',
+    wattages: [100, 150, 200],
+    finishes: ['WH', 'NW'],
+    shapes: [],
+    features: [
+      'Finned die-cast body for cool, stable running',
+      'Adjustable bracket aims the beam where it\'s needed',
+      'High-output 100-200W for high-ceiling spaces'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'daisy_garden_spike',
+    name: 'Daisy Garden Spike',
+    categories: ['Landscape Lights', 'Outdoor Lights'],
+    tagline: 'Spike-mount spotlight to light up gardens.',
+    description: 'A weatherproof spike spotlight that pushes straight into soil — uplight plants, trees and pathways, in warm white or four vivid accent colours.',
+    wattages: [7, 9, 12],
+    finishes: ['WW', 'G', 'R', 'P', 'B'],
+    shapes: [],
+    features: [
+      'Ground spike — no drilling or fixing',
+      'Adjustable head aims the beam',
+      'Warm white plus green, red, pink & blue'
+    ],
+    warranty: '2-year'
+  },
+
+  {
+    id: 'track_rail',
+    name: 'Track Rail',
+    categories: ['Indoor Lights', 'Commercial & Industrial Lights', 'Office Lights'],
+    tagline: 'Surface track for LED track spotlights.',
+    description: 'The mounting rail that powers and positions track spotlights — run one length or join sections for a continuous, ceiling-mounted lighting line.',
+    wattages: [],
+    finishes: ['White', 'Black'],
+    shapes: [],
+    features: [
+      'Surface-mounted single-circuit track',
+      'Pairs with the Aster Track Spotlight',
+      'Join 1 m and 2 m sections for any layout'
+    ],
     warranty: '2-year'
   }
 
